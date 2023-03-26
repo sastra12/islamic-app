@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Home from "../pages/Home.vue"
-import Quran from "../pages/Quran.vue"
+
 
 const routes = [
     {
@@ -9,7 +9,8 @@ const routes = [
         component: Home,
     },
     // Card Menu
-    { path: '/quran', component: Quran }
+    { path: '/quran', component: () => import('../pages/Quran.vue') },
+
 
 
 

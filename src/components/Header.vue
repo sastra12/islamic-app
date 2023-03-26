@@ -1,10 +1,7 @@
 <template>
   <div class="bg-gradient-to-r from-green-800 to-emerald-600 rounded-md h-48">
     <!-- Logo Atas -->
-    <div class="flex items-center p-3">
-      <p class="font-sans text-white">Islamic App</p>
-      <img class="w-4 h-4 ml-2" src="/image/muslim.webp" alt="" />
-    </div>
+    <Logo />
 
     <div class="p-3">
       <p class="font-sans text-white text-xl">
@@ -31,7 +28,10 @@
 </template>
 
 <script>
-export default {};
+import Logo from "./Logo.vue";
+export default {
+  components: { Logo },
+};
 </script>
 
 <style>
