@@ -1,0 +1,9 @@
+<template>
+  <div class="px-8 pt-6 max-w-xl mx-auto bg-[#f7f7f7]">
+    <slot></slot>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>

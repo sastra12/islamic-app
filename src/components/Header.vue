@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gradient-to-r h-48 from-green-800 to-emerald-600 rounded-md">
+  <div class="bg-gradient-to-r from-green-800 to-emerald-600 rounded-md h-48">
     <!-- Logo Atas -->
     <div class="flex items-center p-3">
       <p class="font-sans text-white">Islamic App</p>
@@ -18,7 +18,7 @@
   </div>
 
   <div
-    class="px-3 py-2 left-0 right-0 mx-auto top-[-28px] relative bg-white rounded-md header:w-11/12 shadow-lg"
+    class="px-3 py-2 left-0 right-0 mx-auto top-[-28px] relative bg-white rounded-md w-11/12 shadow-lg"
   >
     <p class="font-sans text-xs text-slate-600">
       Barang siapa membaca satu huruf dari kitab Allah, maka dibalas satu

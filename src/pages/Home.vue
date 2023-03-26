@@ -1,15 +1,17 @@
 <template>
-  <div class="px-8 pt-6 max-w-xl mx-auto bg-[#f7f7f7]">
+  <default-container>
     <Header />
     <Main />
-  </div>
+  </default-container>
 </template>
 
 <script>
+import DefaultContainerVue from "../components/DefaultContainer.vue";
 import Header from "../components/Header.vue";
 import Main from "../components/Main.vue";
+import DefaultContainer from "../components/DefaultContainer.vue";
 export default {
-  components: { Header, Main },
+  components: { Header, Main, DefaultContainer },
 };
 </script>
 
