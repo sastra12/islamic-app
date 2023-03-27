@@ -10,6 +10,7 @@ const routes = [
     },
     // Card Menu
     { path: '/quran', component: () => import('../pages/Quran.vue') },
+    { path: '/surat/:id', component: () => import('../pages/DetailSurah.vue') }
 
 
 
