@@ -25,7 +25,9 @@
         </h3>
       </div>
       <div class="mt-2">
-        <h3 class="text-white text-2xl">{{ detailsurah.namaLatin }}</h3>
+        <h3 class="text-white text-2xl">
+          {{ detailsurah.namaLatin }} - {{ detailsurah.jumlahAyat }}
+        </h3>
         <p class="text-white text-sm font-thin mt-2 mb-3">
           {{ detailsurah.arti }}
         </p>
@@ -35,7 +37,15 @@
         </h4>
         <audio class="w-4/5 h-8 mt-4 mx-auto" :src="audio" controls></audio>
       </div>
-      <div></div>
+    </div>
+
+    <!-- card ayat -->
+    <div class="mt-4">
+      <ListCardAyat
+        v-for="ayats in detailsurah.ayat"
+        :key="ayats"
+        :ayats="ayats"
+      />
     </div>
   </default-container>
 </template>
@@ -43,8 +53,10 @@
 <script>
 import axios from "axios";
 import DefaultContainer from "../components/DefaultContainer.vue";
+import ListCardAyat from "../components/quran/ListCardAyat.vue";
+
 export default {
-  components: { DefaultContainer },
+  components: { DefaultContainer, ListCardAyat },
 
   data() {
     return {
