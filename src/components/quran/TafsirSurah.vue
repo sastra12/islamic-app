@@ -1,13 +1,12 @@
 <template>
-  <!-- <div>Hallo Dunia</div> -->
   <div
     class="bg-white py-4 px-3 mb-3 rounded-md"
-    v-for="ayat in ayats"
-    :key="ayat.nomorAyat"
+    v-for="tafsir in allTafsir"
+    :key="tafsir.ayat"
   >
-    <div class="flex">
+    <div class="">
       <svg
-        class="text-emerald-500 transition duration-[500ms]"
+        class="text-emerald-500 transition duration-[500ms] mx-auto mb-3"
         width="37"
         height="36"
         viewBox="0 0 37 36"
@@ -25,22 +24,41 @@
           text-anchor="middle"
           fill="currentColor"
         >
-          {{ ayat.nomorAyat }}
+          {{ tafsir.ayat }}
         </text>
       </svg>
-
-      <div class="ml-auto my-auto">
-        <p class="text-2xl text-emerald-500 text-right">{{ ayat.teksArab }}</p>
-      </div>
+      <p class="ml-3 text-[12px] text-slate-400">
+        {{ tafsir.teks }}
+      </p>
     </div>
-    <p class="mt-5 text-slate-400">{{ ayat.teksIndonesia }}</p>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  props: {
-    ayats: Object,
+  data() {
+    return {
+      allTafsir: [],
+    };
+  },
+
+  created() {
+    this.getTafsirSurah();
+  },
+
+  methods: {
+    async getTafsirSurah() {
+      try {
+        const response = await axios.get(
+          "https://equran.id/api/v2/tafsir/" + this.$route.params.id
+        );
+        this.allTafsir = response.data.data.tafsir;
+        console.log(this.allTafsir);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 </script>

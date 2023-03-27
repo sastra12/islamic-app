@@ -26,10 +26,10 @@
       </div>
       <div class="mt-2">
         <h3 class="text-white text-2xl">
-          {{ detailsurah.namaLatin }} - {{ detailsurah.jumlahAyat }}
+          {{ detailsurah.namaLatin }}
         </h3>
         <p class="text-white text-sm font-thin mt-2 mb-3">
-          {{ detailsurah.arti }}
+          {{ detailsurah.arti }} - {{ detailsurah.jumlahAyat }} Ayat
         </p>
         <hr />
         <h4 class="text-[28px] text-white text-center mt-4">
@@ -38,14 +38,27 @@
         <audio class="w-4/5 h-8 mt-4 mx-auto" :src="audio" controls></audio>
       </div>
     </div>
-
+    <div class="inline-flex rounded-md shadow-sm w-full" role="group">
+      <button
+        @click="showSurah()"
+        type="button"
+        class="w-1/2 px-4 py-2 text-sm font-medium text-emerald-400 bg-white border-r hover:bg-emerald-600 hover:text-white"
+      >
+        Surah
+      </button>
+      <button
+        @click="showTafsir()"
+        type="button"
+        class="w-1/2 px-4 py-2 text-sm font-medium text-emerald-400 bg-white hover:bg-emerald-600 hover:text-white"
+      >
+        Tafsir
+      </button>
+    </div>
     <!-- card ayat -->
     <div class="mt-4">
-      <ListCardAyat
-        v-for="ayats in detailsurah.ayat"
-        :key="ayats"
-        :ayats="ayats"
-      />
+      <keep-alive>
+        <component :is="activeComponent" :ayats="detailsurah.ayat" />
+      </keep-alive>
     </div>
   </default-container>
 </template>
@@ -54,14 +67,16 @@
 import axios from "axios";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import ListCardAyat from "../components/quran/ListCardAyat.vue";
+import TafsirSurah from "../components/quran/TafsirSurah.vue";
 
 export default {
-  components: { DefaultContainer, ListCardAyat },
+  components: { DefaultContainer, ListCardAyat, TafsirSurah },
 
   data() {
     return {
       detailsurah: [],
       audio: "",
+      activeComponent: "ListCardAyat",
     };
   },
 
@@ -76,10 +91,19 @@ export default {
           "https://equran.id/api/v2/surat/" + this.$route.params.id
         );
         this.detailsurah = response.data.data;
+        this.ayat = this.detailsurah.ayat;
         this.audio = this.detailsurah.audioFull["05"];
       } catch (error) {
         console.log(error);
       }
+    },
+
+    showSurah() {
+      this.activeComponent = "ListCardAyat";
+    },
+
+    showTafsir() {
+      this.activeComponent = "TafsirSurah";
     },
   },
 };
