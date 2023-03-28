@@ -15,14 +15,17 @@
         </card-menu>
       </router-link>
 
-      <card-menu>
-        <img
-          src="/image/allah.webp"
-          alt=""
-          class="w-10 h-10 text-center mx-auto"
-        />
-        <h6 class="text-center text-white text-xs mt-1">Asmaul Husna</h6>
-      </card-menu>
+      <router-link to="/asmaul-husna">
+        <card-menu>
+          <img
+            src="/image/allah.webp"
+            alt=""
+            class="w-10 h-10 text-center mx-auto"
+          />
+          <h6 class="text-center text-white text-xs mt-1">Asmaul Husna</h6>
+        </card-menu>
+      </router-link>
+
       <card-menu
         ><img
           src="/image/praying.webp"

@@ -55,8 +55,6 @@ export default {
     this.getDataSurah();
   },
 
-  computed: {},
-
   mounted() {},
 
   methods: {
