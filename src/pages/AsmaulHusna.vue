@@ -48,9 +48,11 @@ export default {
   },
 
   created() {
-    this.getAsmaulHusna();
     console.log(this.test);
-    console.log("All Data: " + this.allData);
+  },
+
+  mounted() {
+    this.getAsmaulHusna();
   },
 
   methods: {
