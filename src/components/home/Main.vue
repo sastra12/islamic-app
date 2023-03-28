@@ -22,25 +22,37 @@
             alt=""
             class="w-10 h-10 text-center mx-auto"
           />
-          <h6 class="text-center text-white text-xs mt-1">Asmaul Husna</h6>
+          <h6
+            class="text-center text-white text-[9px] min-[435px]:text-xs mt-1"
+          >
+            Asmaul Husna
+          </h6>
         </card-menu>
       </router-link>
 
-      <card-menu
-        ><img
-          src="/image/praying.webp"
-          alt=""
-          class="w-10 h-10 text-center mx-auto"
-        />
-        <h6 class="text-center text-white text-xs mt-1">Doa Harian</h6>
-      </card-menu>
+      <router-link to="/doa-harian">
+        <card-menu
+          ><img
+            src="/image/praying.webp"
+            alt=""
+            class="w-10 h-10 text-center mx-auto"
+          />
+          <h6
+            class="text-center text-white text-[9px] min-[435px]:text-xs mt-1"
+          >
+            Doa Harian
+          </h6>
+        </card-menu>
+      </router-link>
       <card-menu>
         <img
           src="/image/hadits.webp"
           alt=""
           class="w-10 h-10 text-center mx-auto"
         />
-        <h6 class="text-center text-white text-xs mt-1">Hadist Rasul</h6>
+        <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
+          Hadist Rasul
+        </h6>
       </card-menu>
       <card-menu
         ><img
@@ -48,7 +60,9 @@
           alt=""
           class="w-10 h-10 text-center mx-auto"
         />
-        <h6 class="text-center text-white text-xs mt-1">Kisah Nabi</h6>
+        <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
+          Kisah Nabi
+        </h6>
       </card-menu>
       <card-menu
         ><img
@@ -56,7 +70,9 @@
           alt=""
           class="w-10 h-10 text-center mx-auto"
         />
-        <h6 class="text-center text-white text-xs mt-1">Bacaan Tahlil</h6>
+        <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
+          Bacaan Tahlil
+        </h6>
       </card-menu>
       <card-menu>
         <img
@@ -64,7 +80,7 @@
           alt=""
           class="w-10 h-10 text-center mx-auto"
         />
-        <h6 class="text-center text-white text-xs mt-1">
+        <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
           Shalawat Nabi
         </h6></card-menu
       >
@@ -74,7 +90,9 @@
           alt=""
           class="w-10 h-10 text-center mx-auto"
         />
-        <h6 class="text-center text-white text-xs mt-1">Bacaan Shalat</h6>
+        <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
+          Bacaan Shalat
+        </h6>
       </card-menu>
     </div>
   </div>

@@ -12,6 +12,7 @@ const routes = [
     { path: '/quran', component: () => import('../pages/Quran.vue') },
     { path: '/surat/:id', component: () => import('../pages/DetailSurah.vue') },
     { path: '/asmaul-husna', component: () => import('../pages/AsmaulHusna.vue') },
+    { path: '/doa-harian', component: () => import('../pages/DoaHarian.vue') },
 
 
 
