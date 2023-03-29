@@ -1,8 +1,8 @@
 <template>
   <div class="bg-white py-4 px-3 mb-3 rounded-md cursor-pointer">
-    <p class="text-emerald-400 font-light">{{ doa.title }}</p>
+    <p class="text-emerald-400 font-light">{{ selectedProp.title }}</p>
     <p class="text-right text-xl text-slate-700 mt-2 font-bold">
-      {{ doa.arabic }}
+      {{ selectedProp.arabic }}
     </p>
     <svg
       @click="isOpen = !isOpen"
@@ -34,11 +34,17 @@
 export default {
   props: {
     doa: Object,
+    tahlil: Object,
   },
   data() {
     return {
+      selectedProp: "",
       isOpen: false,
     };
+  },
+
+  created() {
+    this.selectedProp = this.doa ? this.doa : this.tahlil;
   },
 };
 </script>

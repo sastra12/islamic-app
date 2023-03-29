@@ -54,26 +54,35 @@
           Hadist Rasul
         </h6>
       </card-menu>
-      <card-menu
-        ><img
-          src="/image/lighter.webp"
-          alt=""
-          class="w-10 h-10 text-center mx-auto"
-        />
-        <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
-          Kisah Nabi
-        </h6>
-      </card-menu>
-      <card-menu
-        ><img
-          src="/image/tasbih.webp"
-          alt=""
-          class="w-10 h-10 text-center mx-auto"
-        />
-        <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
-          Bacaan Tahlil
-        </h6>
-      </card-menu>
+      <router-link to="/kisah-nabi">
+        <card-menu
+          ><img
+            src="/image/lighter.webp"
+            alt=""
+            class="w-10 h-10 text-center mx-auto"
+          />
+          <h6
+            class="text-center text-white text-[9px] min-[435px]:text-xs mt-1"
+          >
+            Kisah Nabi
+          </h6>
+        </card-menu>
+      </router-link>
+
+      <router-link to="/bacaan-tahlil">
+        <card-menu
+          ><img
+            src="/image/tasbih.webp"
+            alt=""
+            class="w-10 h-10 text-center mx-auto"
+          />
+          <h6
+            class="text-center text-white text-[9px] min-[435px]:text-xs mt-1"
+          >
+            Bacaan Tahlil
+          </h6>
+        </card-menu>
+      </router-link>
       <card-menu>
         <img
           src="/image/muhammad.webp"
