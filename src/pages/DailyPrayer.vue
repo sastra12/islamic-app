@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import Accordion from "../components/doa/Accordion.vue";
+import Accordion from "../components/Accordion.vue";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import axios from "axios";
 export default {

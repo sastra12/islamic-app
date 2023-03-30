@@ -31,7 +31,7 @@
 <script>
 import axios from "axios";
 import DefaultContainer from "../components/DefaultContainer.vue";
-import Accordion from "../components/doa/Accordion.vue";
+import Accordion from "../components/Accordion.vue";
 export default {
   data() {
     return {

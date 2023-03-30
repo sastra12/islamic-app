@@ -1,116 +1,267 @@
 <template>
-  <div class="bg-gradient-to-r rounded-md">
-    <h1 class="text-center pt-3 font-semibold text-slate-600">
-      Baca Al-Qur'an
-    </h1>
-    <div class="grid grid-cols-4 gap-4 mt-4">
-      <router-link to="/quran">
-        <card-menu>
-          <img
-            src="/image/quran.webp"
-            alt=""
-            class="w-10 h-10 text-center mx-auto"
-          />
-          <h6 class="text-center text-white text-xs mt-1">Al-Qur'an</h6>
-        </card-menu>
-      </router-link>
-
-      <router-link to="/asmaul-husna">
-        <card-menu>
-          <img
-            src="/image/allah.webp"
-            alt=""
-            class="w-10 h-10 text-center mx-auto"
-          />
-          <h6
-            class="text-center text-white text-[9px] min-[435px]:text-xs mt-1"
-          >
-            Asmaul Husna
-          </h6>
-        </card-menu>
-      </router-link>
-
-      <router-link to="/doa-harian">
-        <card-menu
-          ><img
-            src="/image/praying.webp"
-            alt=""
-            class="w-10 h-10 text-center mx-auto"
-          />
-          <h6
-            class="text-center text-white text-[9px] min-[435px]:text-xs mt-1"
-          >
-            Doa Harian
-          </h6>
-        </card-menu>
-      </router-link>
+  <h1 class="text-center pt-3 font-semibold text-slate-600">Baca Al-Qur'an</h1>
+  <div class="grid grid-cols-4 gap-4 mt-4">
+    <router-link to="/quran">
       <card-menu>
         <img
-          src="/image/hadits.webp"
+          src="/image/quran.webp"
+          alt=""
+          class="w-10 h-10 text-center mx-auto"
+        />
+        <h6 class="text-center text-white text-xs mt-1">Al-Qur'an</h6>
+      </card-menu>
+    </router-link>
+
+    <router-link to="/asmaul-husna">
+      <card-menu>
+        <img
+          src="/image/allah.webp"
           alt=""
           class="w-10 h-10 text-center mx-auto"
         />
         <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
-          Hadist Rasul
+          Asmaul Husna
         </h6>
       </card-menu>
-      <router-link to="/kisah-nabi">
-        <card-menu
-          ><img
-            src="/image/lighter.webp"
-            alt=""
-            class="w-10 h-10 text-center mx-auto"
-          />
-          <h6
-            class="text-center text-white text-[9px] min-[435px]:text-xs mt-1"
-          >
-            Kisah Nabi
-          </h6>
-        </card-menu>
-      </router-link>
+    </router-link>
 
-      <router-link to="/bacaan-tahlil">
-        <card-menu
-          ><img
-            src="/image/tasbih.webp"
-            alt=""
-            class="w-10 h-10 text-center mx-auto"
-          />
-          <h6
-            class="text-center text-white text-[9px] min-[435px]:text-xs mt-1"
-          >
-            Bacaan Tahlil
-          </h6>
-        </card-menu>
-      </router-link>
-      <card-menu>
-        <img
-          src="/image/muhammad.webp"
+    <router-link to="/doa-harian">
+      <card-menu
+        ><img
+          src="/image/praying.webp"
           alt=""
           class="w-10 h-10 text-center mx-auto"
         />
         <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
-          Shalawat Nabi
-        </h6></card-menu
+          Doa Harian
+        </h6>
+      </card-menu>
+    </router-link>
+
+    <router-link to="/bacaan-tahlil">
+      <card-menu
+        ><img
+          src="/image/tasbih.webp"
+          alt=""
+          class="w-10 h-10 text-center mx-auto"
+        />
+        <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
+          Bacaan Tahlil
+        </h6>
+      </card-menu>
+    </router-link>
+  </div>
+
+  <!-- Waktu Sholat -->
+  <div class="mt-12">
+    <div class="flex justify-center items-center">
+      <h1 class="font-semibold text-slate-600">
+        Pilih Waktu Sholat Daerah Anda {{ allProperti.lokasi }}
+      </h1>
+      <button class="cursor-pointer" @click.prevent="showModal = !showModal">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-caret-down-fill ml-1"
+          viewBox="0 0 15 15"
+        >
+          <path
+            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="mt-1">
+      <h3 class="text-center text-slate-400 font-light">
+        {{ getCurrentDate() }}
+      </h3>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="fixed flex justify-center items-center z-50 inset-0"
+      v-if="showModal"
+    >
+      <div class="fixed mx-auto w-4/5 h-1/2 max-w-sm overflow-y-auto top-36">
+        <div class="bg-white mx-auto p-3">
+          <header class="flex justify-between">
+            <span class="text-emerald-300 font-semibold">Daftar Kota</span>
+            <button
+              class="rounded bg-red-400 text-white py-1 px-2 text-xs"
+              @click="showModal = false"
+            >
+              Close
+            </button>
+          </header>
+          <hr class="mt-2 mb-4" />
+          <div
+            class="py-2 px-1 rounded hover:bg-emerald-500 mb-1"
+            v-for="lokasi in allDatalokasi"
+            :key="lokasi.id"
+            @click.prevent="getDynamicLocation(lokasi.id)"
+          >
+            <p class="text-xs text-emerald-400 hover:text-white font-semibold">
+              {{ lokasi.lokasi }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="showModal" class="fixed z-30 opacity-25 bg-black inset-0"></div>
+
+    <div class="mt-4 grid grid-cols-4 gap-1">
+      <div
+        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
       >
-      <card-menu>
-        <img
-          src="/image/prayer.webp"
-          alt=""
-          class="w-10 h-10 text-center mx-auto"
-        />
-        <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
-          Bacaan Shalat
-        </h6>
-      </card-menu>
+        <p class="text-white text-sm">Imsak</p>
+        <p class="text-white font-semibold">
+          {{ jadwal.imsak }}
+        </p>
+      </div>
+      <div
+        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+      >
+        <p class="text-white text-sm">Subuh</p>
+        <p class="text-white font-semibold">
+          {{ jadwal.subuh }}
+        </p>
+      </div>
+      <div
+        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+      >
+        <p class="text-white text-sm">Terbit</p>
+        <p class="text-white font-semibold">
+          {{ jadwal.terbit }}
+        </p>
+      </div>
+      <div
+        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+      >
+        <p class="text-white text-sm">Dhuha</p>
+        <p class="text-white font-semibold">
+          {{ jadwal.dhuha }}
+        </p>
+      </div>
+      <div
+        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+      >
+        <p class="text-white text-sm">Dhuhur</p>
+        <p class="text-white font-semibold">
+          {{ jadwal.dzuhur }}
+        </p>
+      </div>
+      <div
+        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+      >
+        <p class="text-white text-sm">Ashar</p>
+        <p class="text-white font-semibold">
+          {{ jadwal.ashar }}
+        </p>
+      </div>
+      <div
+        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+      >
+        <p class="text-white text-sm">Magrib</p>
+        <p class="text-white font-semibold">
+          {{ jadwal.maghrib }}
+        </p>
+      </div>
+      <div
+        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+      >
+        <p class="text-white text-sm">Isya</p>
+        <p class="text-white font-semibold">
+          {{ jadwal.isya }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import CardMenu from "./CardMenu.vue";
 export default {
   components: { CardMenu },
+  data() {
+    return {
+      showModal: false,
+      // defaultLokasi: "1602",
+      // defaultJadwal: [],
+      allProperti: [],
+      allDatalokasi: null,
+      jadwal: [],
+    };
+  },
+
+  created() {
+    // this.getDefaultLocation();
+    this.getAllLocation();
+  },
+
+  computed: {
+    getJadwal() {},
+  },
+
+  methods: {
+    // get all lokasi
+    async getAllLocation() {
+      try {
+        const response = await axios.get(
+          "https://api.myquran.com/v1/sholat/kota/semua"
+        );
+        this.allDatalokasi = response.data;
+        // console.log(this.allDatalokasi);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    // get current date
+    getCurrentDate() {
+      const current = new Date();
+      const date = `${current.getFullYear()}/${
+        current.getMonth() + 1
+      }/${current.getDate()}`;
+      return date;
+    },
+
+    // get default lokasi
+    // async getDefaultLocation() {
+    //   try {
+    //     const response = await axios.get(
+    //       "https://api.myquran.com/v1/sholat/jadwal/" +
+    //         this.defaultLokasi +
+    //         "/" +
+    //         this.getCurrentDate()
+    //     );
+    //     this.allProperti = response.data.data;
+    //     this.tanggal = this.allProperti.jadwal.tanggal;
+    //     this.defaultJadwal = this.allProperti.jadwal;
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
+
+    async getDynamicLocation(id) {
+      try {
+        const response = await axios.get(
+          "https://api.myquran.com/v1/sholat/jadwal/" +
+            id +
+            "/" +
+            this.getCurrentDate()
+        );
+        this.allProperti = response.data.data;
+        this.showModal = false;
+        this.jadwal = this.allProperti.jadwal;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>
 
