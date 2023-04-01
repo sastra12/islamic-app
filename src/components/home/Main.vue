@@ -54,15 +54,19 @@
 
   <!-- Waktu Sholat -->
   <PrayerSchedule />
+
+  <!-- Footer -->
+  <Footer />
 </template>
 
 <script>
 import PrayerSchedule from "./PrayerSchedule.vue";
+import Footer from "./Footer.vue";
 import CardMenu from "./CardMenu.vue";
 import Modal from "../home/Modal.vue";
 
 export default {
-  components: { CardMenu, Modal, PrayerSchedule },
+  components: { CardMenu, Modal, PrayerSchedule, Footer },
 };
 </script>
 

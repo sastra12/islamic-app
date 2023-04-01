@@ -1,7 +1,7 @@
 <template>
   <default-container>
     <div
-      class="bg-gradient-to-r from-green-800 to-emerald-600 rounded-md mb-2 p-3"
+      class="bg-gradient-to-r from-emerald-700 to-teal-500 rounded-md mb-2 p-3"
     >
       <div class="flex items-center justify-between">
         <router-link to="/quran">

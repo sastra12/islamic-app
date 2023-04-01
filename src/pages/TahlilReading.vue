@@ -1,6 +1,6 @@
 <template>
   <default-container>
-    <div class="bg-gradient-to-r from-green-800 to-emerald-600 rounded-md mb-2">
+    <div class="bg-gradient-to-r from-emerald-700 to-teal-500 rounded-md mb-2">
       <div class="p-3 flex items-center justify-between">
         <router-link to="/">
           <svg
