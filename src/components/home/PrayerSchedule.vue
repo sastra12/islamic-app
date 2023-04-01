@@ -28,11 +28,11 @@
 
     <!-- Modal -->
     <div
-      class="fixed flex justify-center items-center z-50 inset-0"
+      class="fixed flex justify-center items-center z-40 inset-0"
       v-if="showModal"
     >
       <div class="fixed mx-auto w-4/5 h-1/2 max-w-sm overflow-y-auto top-36">
-        <div class="bg-white mx-auto p-3">
+        <div class="bg-white mx-auto p-3 z-50">
           <header class="flex justify-between">
             <span class="text-emerald-300 font-semibold">Daftar Kota</span>
             <button
@@ -55,7 +55,7 @@
 
           <div
             class="py-2 px-1 rounded hover:bg-emerald-500 mb-1 cursor-pointer"
-            v-for="lokasi in allDatalokasi"
+            v-for="lokasi in filteredCity"
             :key="lokasi.id"
             @click.prevent="getDynamicLocation(lokasi.id)"
           >
@@ -159,6 +159,14 @@ export default {
     this.getAllLocation();
   },
 
+  computed: {
+    filteredCity() {
+      return this.allDatalokasi.filter((city) =>
+        city.lokasi.toLowerCase().includes(this.search.toLowerCase())
+      );
+    },
+  },
+
   methods: {
     // get all lokasi
     async getAllLocation() {
@@ -167,6 +175,7 @@ export default {
           "https://api.myquran.com/v1/sholat/kota/semua"
         );
         this.allDatalokasi = response.data;
+        console.log(this.allDatalokasi);
       } catch (error) {
         console.log(error);
       }
@@ -260,6 +269,7 @@ export default {
         this.allProperti = response.data.data;
         this.showModal = false;
         this.jadwal = this.allProperti.jadwal;
+        this.search = "";
         localStorage.setItem(
           "lokasi",
           JSON.stringify({
