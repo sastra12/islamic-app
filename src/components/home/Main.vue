@@ -101,6 +101,7 @@
           <form>
             <input
               placeholder="Cari Kota"
+              v-model="search"
               type="text"
               class="text-slate-400 border border-emerald-400 rounded-sm w-full px-1 py-2 focus:outline-none focus:ring focus:ring-emerald-300 bg-white placeholder:text-xs mb-3"
             />
@@ -127,7 +128,7 @@
 
     <div class="mt-4 grid grid-cols-4 gap-1">
       <div
-        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+        class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Imsak</p>
         <p class="text-white font-semibold">
@@ -135,7 +136,7 @@
         </p>
       </div>
       <div
-        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+        class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Subuh</p>
         <p class="text-white font-semibold">
@@ -143,7 +144,7 @@
         </p>
       </div>
       <div
-        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+        class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Terbit</p>
         <p class="text-white font-semibold">
@@ -151,7 +152,7 @@
         </p>
       </div>
       <div
-        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+        class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Dhuha</p>
         <p class="text-white font-semibold">
@@ -159,7 +160,7 @@
         </p>
       </div>
       <div
-        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+        class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Dhuhur</p>
         <p class="text-white font-semibold">
@@ -167,7 +168,7 @@
         </p>
       </div>
       <div
-        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+        class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Ashar</p>
         <p class="text-white font-semibold">
@@ -175,7 +176,7 @@
         </p>
       </div>
       <div
-        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+        class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Magrib</p>
         <p class="text-white font-semibold">
@@ -183,7 +184,7 @@
         </p>
       </div>
       <div
-        class="bg-gradient-to-r from-green-800 to-emerald-600 p-2 text-center rounded-md"
+        class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Isya</p>
         <p class="text-white font-semibold">
@@ -203,9 +204,8 @@ export default {
   data() {
     return {
       showModal: false,
-      defaultLokasi: "1602",
-      search: "",
       allProperti: [],
+      search: "",
       allDatalokasi: null,
       jadwal: [],
     };
@@ -224,7 +224,6 @@ export default {
           "https://api.myquran.com/v1/sholat/kota/semua"
         );
         this.allDatalokasi = response.data;
-        // console.log(this.allDatalokasi);
       } catch (error) {
         console.log(error);
       }
@@ -275,20 +274,35 @@ export default {
 
     // get default lokasi
     async getDefaultLocation() {
-      try {
-        const response = await axios.get(
-          "https://api.myquran.com/v1/sholat/jadwal/" +
-            "1602" +
-            "/" +
-            this.getDate()
-        );
-        this.allProperti = response.data.data;
-        this.jadwal = this.allProperti.jadwal;
-        // this.tanggal = this.allProperti.jadwal.tanggal;
-        // this.defaultJadwal = this.allProperti.jadwal;
-        // console.log(this.allProperti.jadwal.ashar);
-      } catch (error) {
-        console.log(error);
+      // mengambil data dari local storage
+      const dataString = localStorage.getItem("lokasi");
+      const data = JSON.parse(dataString);
+      if (dataString) {
+        try {
+          const response = await axios.get(
+            "https://api.myquran.com/v1/sholat/jadwal/" +
+              data.id +
+              "/" +
+              this.getDate()
+          );
+          this.allProperti = response.data.data;
+          this.jadwal = this.allProperti.jadwal;
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          const response = await axios.get(
+            "https://api.myquran.com/v1/sholat/jadwal/" +
+              "1602" +
+              "/" +
+              this.getDate()
+          );
+          this.allProperti = response.data.data;
+          this.jadwal = this.allProperti.jadwal;
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
 
@@ -303,6 +317,12 @@ export default {
         this.allProperti = response.data.data;
         this.showModal = false;
         this.jadwal = this.allProperti.jadwal;
+        localStorage.setItem(
+          "lokasi",
+          JSON.stringify({
+            id: this.allProperti.id,
+          })
+        );
       } catch (error) {
         console.log(error);
       }
