@@ -97,8 +97,17 @@
             </button>
           </header>
           <hr class="mt-2 mb-4" />
+
+          <form>
+            <input
+              placeholder="Cari Kota"
+              type="text"
+              class="text-slate-400 border border-emerald-400 rounded-sm w-full px-1 py-2 focus:outline-none focus:ring focus:ring-emerald-300 bg-white placeholder:text-xs mb-3"
+            />
+          </form>
+
           <div
-            class="py-2 px-1 rounded hover:bg-emerald-500 mb-1"
+            class="py-2 px-1 rounded hover:bg-emerald-500 mb-1 cursor-pointer"
             v-for="lokasi in allDatalokasi"
             :key="lokasi.id"
             @click.prevent="getDynamicLocation(lokasi.id)"
@@ -110,7 +119,11 @@
         </div>
       </div>
     </div>
-    <div v-if="showModal" class="fixed z-30 opacity-25 bg-black inset-0"></div>
+    <div
+      v-if="showModal"
+      class="fixed z-30 opacity-25 bg-black inset-0"
+      @click="showModal = false"
+    ></div>
 
     <div class="mt-4 grid grid-cols-4 gap-1">
       <div
@@ -184,13 +197,14 @@
 <script>
 import axios from "axios";
 import CardMenu from "./CardMenu.vue";
+import Modal from "../home/Modal.vue";
 export default {
-  components: { CardMenu },
+  components: { CardMenu, Modal },
   data() {
     return {
       showModal: false,
-      // defaultLokasi: "1602",
-      // defaultJadwal: [],
+      defaultLokasi: "1602",
+      search: "",
       allProperti: [],
       allDatalokasi: null,
       jadwal: [],
@@ -198,12 +212,8 @@ export default {
   },
 
   created() {
-    // this.getDefaultLocation();
+    this.getDefaultLocation();
     this.getAllLocation();
-  },
-
-  computed: {
-    getJadwal() {},
   },
 
   methods: {
@@ -222,6 +232,40 @@ export default {
 
     // get current date
     getCurrentDate() {
+      const day = [
+        "Minggu",
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat",
+        "Sabtu",
+      ];
+
+      const indexMonth = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+      ];
+
+      const current = new Date();
+      const dayIndex = current.getDay();
+      const date = `${day[dayIndex]}, ${current.getDate()} ${
+        indexMonth[current.getMonth() + 1]
+      } ${current.getFullYear()}`;
+      return date;
+    },
+
+    getDate() {
       const current = new Date();
       const date = `${current.getFullYear()}/${
         current.getMonth() + 1
@@ -230,21 +274,23 @@ export default {
     },
 
     // get default lokasi
-    // async getDefaultLocation() {
-    //   try {
-    //     const response = await axios.get(
-    //       "https://api.myquran.com/v1/sholat/jadwal/" +
-    //         this.defaultLokasi +
-    //         "/" +
-    //         this.getCurrentDate()
-    //     );
-    //     this.allProperti = response.data.data;
-    //     this.tanggal = this.allProperti.jadwal.tanggal;
-    //     this.defaultJadwal = this.allProperti.jadwal;
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
+    async getDefaultLocation() {
+      try {
+        const response = await axios.get(
+          "https://api.myquran.com/v1/sholat/jadwal/" +
+            "1602" +
+            "/" +
+            this.getDate()
+        );
+        this.allProperti = response.data.data;
+        this.jadwal = this.allProperti.jadwal;
+        // this.tanggal = this.allProperti.jadwal.tanggal;
+        // this.defaultJadwal = this.allProperti.jadwal;
+        // console.log(this.allProperti.jadwal.ashar);
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
     async getDynamicLocation(id) {
       try {
@@ -252,7 +298,7 @@ export default {
           "https://api.myquran.com/v1/sholat/jadwal/" +
             id +
             "/" +
-            this.getCurrentDate()
+            this.getDate()
         );
         this.allProperti = response.data.data;
         this.showModal = false;
