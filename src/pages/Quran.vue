@@ -21,29 +21,8 @@
         <h3 class="font-sans text-white mx-auto">Quran Web</h3>
       </div>
     </div>
-    <div class="relative">
-      <input
-        placeholder="Cari Surah"
-        type="text"
-        class="text-slate-400 rounded-sm w-full px-3 py-2 focus:outline-none focus:ring focus:ring-emerald-300 bg-white"
-      />
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6 text-emerald-500 absolute top-2 right-2"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-        />
-      </svg>
-    </div>
 
-    <div class="mt-8">
+    <div class="">
       <ListCardSurah />
     </div>
   </default-container>

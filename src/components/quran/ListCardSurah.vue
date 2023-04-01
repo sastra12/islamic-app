@@ -1,10 +1,33 @@
 <template>
-  <router-link
-    :to="`surat/${surah.nomor}`"
-    v-for="surah in surahs"
+  <div class="relative mb-4">
+    <input
+      v-model="search"
+      placeholder="Cari Surah"
+      type="text"
+      class="text-slate-400 rounded-sm w-full px-3 py-2 focus:outline-none focus:ring focus:ring-emerald-300 bg-white"
+    />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-6 h-6 text-emerald-500 absolute top-2 right-2"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+      />
+    </svg>
+  </div>
+
+  <div
+    class="bg-white py-4 px-3 mb-3"
+    v-for="surah in filteredSurah"
     :key="surah.nomor"
   >
-    <div class="bg-white py-4 px-3 mb-3">
+    <router-link :to="`surat/${surah.nomor}`">
       <div class="flex">
         <svg
           class="text-emerald-500 transition duration-[500ms]"
@@ -38,8 +61,8 @@
           <p class="text-2xl text-emerald-500">{{ surah.nama }}</p>
         </div>
       </div>
-    </div>
-  </router-link>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -47,8 +70,17 @@ import axios from "axios";
 export default {
   data() {
     return {
+      search: "",
       surahs: [],
     };
+  },
+
+  computed: {
+    filteredSurah() {
+      return this.surahs.filter((surah) =>
+        surah.namaLatin.toLowerCase().includes(this.search.toLowerCase())
+      );
+    },
   },
 
   created() {
