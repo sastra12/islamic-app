@@ -8,7 +8,9 @@
           alt=""
           class="w-10 h-10 text-center mx-auto"
         />
-        <h6 class="text-center text-white text-xs mt-1">Al-Qur'an</h6>
+        <h6 class="text-center text-white text-[9px] min-[435px]:text-xs mt-1">
+          Al Quran
+        </h6>
       </card-menu>
     </router-link>
 

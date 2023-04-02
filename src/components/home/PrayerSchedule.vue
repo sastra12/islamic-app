@@ -30,6 +30,7 @@
     <div
       class="fixed flex justify-center items-center z-40 inset-0"
       v-if="showModal"
+      @click.self="showModal = false"
     >
       <div class="fixed mx-auto w-4/5 h-1/2 max-w-sm overflow-y-auto top-36">
         <div class="bg-white mx-auto p-3 z-50">
@@ -66,11 +67,7 @@
         </div>
       </div>
     </div>
-    <div
-      v-if="showModal"
-      class="fixed z-30 opacity-25 bg-black inset-0"
-      @click="showModal = false"
-    ></div>
+    <div v-if="showModal" class="fixed z-30 opacity-25 bg-black inset-0"></div>
 
     <div class="mt-4 grid grid-cols-4 gap-1">
       <div
