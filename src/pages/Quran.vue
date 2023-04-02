@@ -22,9 +22,7 @@
       </div>
     </div>
 
-    <div class="">
-      <ListCardSurah />
-    </div>
+    <ListCardSurah />
   </default-container>
 </template>
 
