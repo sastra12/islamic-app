@@ -1,14 +1,30 @@
 <template>
-  <router-view v-slot="{ Component }">
-    <transition name="route" mode="out-in">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  <div :class="mode">
+    <router-view v-slot="{ Component }">
+      <transition name="route">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+  </div>
 </template>
 
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      mode: "dark",
+    };
+  },
+
+  mounted() {},
+
+  provide() {
+    return {
+      mode: this.mode,
+    };
+  },
+};
 </script>
 <style>
 .route-enter-from {
@@ -27,5 +43,9 @@ export default {};
 
 .route-leave-active {
   transition: all 0.3s ease-in;
+}
+
+.dark {
+  background: rgb(3 7 18);
 }
 </style>

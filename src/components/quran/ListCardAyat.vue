@@ -1,13 +1,13 @@
 <template>
-  <!-- <div>Hallo Dunia</div> -->
   <div
     class="bg-white py-4 px-3 mb-3 rounded-md"
+    :class="mode"
     v-for="ayat in ayats"
     :key="ayat.nomorAyat"
   >
     <div class="flex">
       <svg
-        class="text-emerald-500 transition duration-[500ms]"
+        class="text-teal-500 transition duration-[500ms]"
         width="37"
         height="36"
         viewBox="0 0 37 36"
@@ -30,7 +30,7 @@
       </svg>
 
       <div class="ml-auto my-auto">
-        <p class="text-2xl text-emerald-500 text-right">{{ ayat.teksArab }}</p>
+        <p class="text-2xl text-teal-500 text-right">{{ ayat.teksArab }}</p>
       </div>
     </div>
     <p class="mt-5 text-slate-400">{{ ayat.teksIndonesia }}</p>
@@ -39,8 +39,28 @@
 
 <script>
 export default {
+  inject: ["mode"],
   props: {
     ayats: Object,
   },
+
+  data() {
+    return {
+      selectedColor: "",
+    };
+  },
+
+  created() {
+    this.selectedColor =
+      this.mode != "dark"
+        ? (this.selectedColor = "text-slate-600")
+        : (this.selectedColor = "text-white");
+  },
 };
 </script>
+
+<style scoped>
+.dark {
+  background: rgb(31 41 55);
+}
+</style>

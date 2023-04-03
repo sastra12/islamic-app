@@ -1,7 +1,7 @@
 <template>
   <div class="mt-12">
     <div class="flex justify-center items-center">
-      <div class="font-semibold text-slate-600">
+      <h3 class="font-semibold" :class="selectedColor">
         Pilih Waktu Sholat Daerah Anda {{ allProperti.lokasi }}
         <button class="cursor-pointer" @click.prevent="showModal = !showModal">
           <svg
@@ -17,7 +17,7 @@
             />
           </svg>
         </button>
-      </div>
+      </h3>
     </div>
 
     <div class="mt-1">
@@ -35,7 +35,7 @@
       <div class="fixed mx-auto w-4/5 h-1/2 max-w-sm overflow-y-auto top-36">
         <div class="bg-white mx-auto p-3 z-50">
           <header class="flex justify-between">
-            <span class="text-emerald-300 font-semibold">Daftar Kota</span>
+            <span class="text-teal-500 font-semibold">Daftar Kota</span>
             <button
               class="rounded bg-red-400 text-white py-1 px-2 text-xs"
               @click="showModal = false"
@@ -50,17 +50,17 @@
               placeholder="Cari Kota"
               v-model="search"
               type="text"
-              class="text-slate-400 border border-emerald-400 rounded-sm w-full px-1 py-2 focus:outline-none focus:ring focus:ring-emerald-300 bg-white placeholder:text-xs mb-3"
+              class="text-slate-400 border border-teal-500 rounded-sm w-full px-1 py-2 focus:outline-none focus:ring focus:ring-teal-500 bg-white placeholder:text-xs mb-3"
             />
           </form>
 
           <div
-            class="py-2 px-1 rounded hover:bg-emerald-500 mb-1 cursor-pointer"
+            class="py-2 px-1 rounded hover:bg-teal-500 mb-1 cursor-pointer"
             v-for="lokasi in filteredCity"
             :key="lokasi.id"
             @click.prevent="getDynamicLocation(lokasi.id)"
           >
-            <p class="text-xs text-emerald-400 hover:text-white font-semibold">
+            <p class="text-xs text-teal-500 hover:text-white font-semibold">
               {{ lokasi.lokasi }}
             </p>
           </div>
@@ -141,8 +141,10 @@
 <script>
 import axios from "axios";
 export default {
+  inject: ["mode"],
   data() {
     return {
+      selectedColor: "",
       showModal: false,
       allProperti: [],
       search: "",
@@ -154,6 +156,10 @@ export default {
   created() {
     this.getDefaultLocation();
     this.getAllLocation();
+    this.selectedColor =
+      this.mode != "dark"
+        ? (this.selectedColor = "text-slate-600")
+        : (this.selectedColor = "text-white");
   },
 
   computed: {
@@ -172,7 +178,6 @@ export default {
           "https://api.myquran.com/v1/sholat/kota/semua"
         );
         this.allDatalokasi = response.data;
-        console.log(this.allDatalokasi);
       } catch (error) {
         console.log(error);
       }
@@ -280,3 +285,6 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>

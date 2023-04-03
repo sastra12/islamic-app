@@ -4,7 +4,8 @@
       v-model="search"
       placeholder="Cari Surah"
       type="text"
-      class="text-slate-400 rounded-sm w-full px-3 py-2 focus:outline-none focus:ring focus:ring-emerald-300 bg-white"
+      class="text-slate-400 rounded-sm w-full px-3 py-2 focus:outline-none focus:ring focus:ring-teal-500 bg-white"
+      :class="mode"
     />
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +13,7 @@
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="w-6 h-6 text-emerald-500 absolute top-2 right-2"
+      class="w-6 h-6 text-teal-500 absolute top-2 right-2"
     >
       <path
         stroke-linecap="round"
@@ -23,14 +24,15 @@
   </div>
 
   <div
-    class="bg-white py-4 px-3 mb-3"
+    class="bg-white py-2 rounded-md px-3 mb-3"
+    :class="mode"
     v-for="surah in filteredSurah"
     :key="surah.nomor"
   >
     <router-link :to="`surat/${surah.nomor}`">
       <div class="flex">
         <svg
-          class="text-emerald-500 transition duration-[500ms]"
+          class="text-teal-500 transition duration-[500ms]"
           width="37"
           height="36"
           viewBox="0 0 37 36"
@@ -52,13 +54,13 @@
           </text>
         </svg>
         <div class="ml-3">
-          <h3 class="text-emerald-500">{{ surah.namaLatin }}</h3>
+          <h3 class="text-teal-500">{{ surah.namaLatin }}</h3>
           <p class="text-[12px] text-slate-400">
             {{ convertToTypeSurah(surah.nomor) }}, {{ surah.jumlahAyat }} Ayat
           </p>
         </div>
         <div class="ml-auto my-auto">
-          <p class="text-2xl text-emerald-500">{{ surah.nama }}</p>
+          <p class="text-2xl text-teal-500">{{ surah.nama }}</p>
         </div>
       </div>
     </router-link>
@@ -68,8 +70,10 @@
 <script>
 import axios from "axios";
 export default {
+  inject: ["mode"],
   data() {
     return {
+      selectedColor: "",
       search: "",
       surahs: [],
     };
@@ -85,6 +89,10 @@ export default {
 
   created() {
     this.getDataSurah();
+    this.selectedColor =
+      this.mode != "dark"
+        ? (this.selectedColor = "text-slate-600")
+        : (this.selectedColor = "text-white");
   },
 
   mounted() {},
@@ -110,3 +118,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.dark {
+  background: rgb(31 41 55);
+}
+</style>

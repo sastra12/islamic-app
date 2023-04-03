@@ -1,5 +1,7 @@
 <template>
-  <h1 class="text-center pt-3 font-semibold text-slate-600">Baca Al-Qur'an</h1>
+  <h1 class="text-center pt-3 font-semibold" :class="selectedColor">
+    Baca Al-Qur'an
+  </h1>
   <div class="grid grid-cols-4 gap-4 mt-4">
     <router-link to="/quran">
       <card-menu>
@@ -67,7 +69,21 @@ import Footer from "./Footer.vue";
 import CardMenu from "./CardMenu.vue";
 
 export default {
+  inject: ["mode"],
   components: { CardMenu, PrayerSchedule, Footer },
+
+  data() {
+    return {
+      selectedColor: "",
+    };
+  },
+
+  created() {
+    this.selectedColor =
+      this.mode != "dark"
+        ? (this.selectedColor = "text-slate-600")
+        : (this.selectedColor = "text-white");
+  },
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white py-4 px-3 mb-3 rounded-md cursor-pointer">
-    <p class="text-emerald-400 font-light">{{ selectedProp.title }}</p>
-    <p class="text-right text-xl text-slate-700 mt-2 font-bold">
+  <div class="bg-white py-4 px-3 mb-3 rounded-md cursor-pointer" :class="mode">
+    <p class="text-teal-500 font-light">{{ selectedProp.title }}</p>
+    <p class="text-right text-xl text-slate-500 mt-2 font-bold">
       {{ selectedProp.arabic }}
     </p>
     <svg
@@ -11,7 +11,7 @@
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="w-4 h-4"
+      class="w-4 h-4 text-slate-400"
       :class="isOpen ? 'rotate-180 duration-500' : 'rotate-(-180) duration-500'"
     >
       <path
@@ -32,6 +32,7 @@
 
 <script>
 export default {
+  inject: ["mode"],
   props: {
     doa: Object,
     tahlil: Object,
@@ -48,3 +49,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.dark {
+  background: rgb(31 41 55);
+}
+</style>

@@ -1,6 +1,7 @@
 <template>
   <div
     class="bg-white py-4 px-3 mb-3 rounded-md"
+    :class="mode"
     v-for="tafsir in allTafsir"
     :key="tafsir.ayat"
   >
@@ -37,6 +38,8 @@
 <script>
 import axios from "axios";
 export default {
+  inject: ["mode"],
+
   data() {
     return {
       allTafsir: [],
@@ -62,3 +65,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.dark {
+  background: rgb(31 41 55);
+}
+</style>

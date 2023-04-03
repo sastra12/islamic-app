@@ -31,6 +31,10 @@
 import Logo from "../Logo.vue";
 export default {
   components: { Logo },
+  inject: ["mode"],
+  created() {
+    console.log(this.mode); // injected value
+  },
 };
 </script>
 

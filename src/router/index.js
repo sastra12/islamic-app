@@ -7,6 +7,7 @@ const routes = [
     {
         path: '/',
         component: Home,
+        props: true
     },
     // Card Menu
     { path: '/quran', component: () => import('../pages/Quran.vue') },

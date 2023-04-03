@@ -23,11 +23,16 @@
     </div>
 
     <div class="card grid grid-cols-2 min-[435px]:grid-cols-4 gap-2">
-      <div class="py-5 px-3 bg-white" v-for="data in allData" :key="data.index">
-        <p class="text-center text-xl font-semibold text-emerald-500">
+      <div
+        class="py-5 px-3 bg-white"
+        :class="mode"
+        v-for="data in allData"
+        :key="data.index"
+      >
+        <p class="text-center text-xl font-semibold text-teal-500">
           {{ data.arabic }}
         </p>
-        <p class="text-center text-[14px] text-emerald-500">{{ data.latin }}</p>
+        <p class="text-center text-[14px] text-teal-500">{{ data.latin }}</p>
       </div>
     </div>
   </default-container>
@@ -38,18 +43,16 @@ import axios from "axios";
 import DefaultContainer from "../components/DefaultContainer.vue";
 
 export default {
+  inject: ["mode"],
   components: { DefaultContainer },
 
   data() {
     return {
       allData: null,
-      test: "Test",
     };
   },
 
-  created() {
-    console.log(this.test);
-  },
+  created() {},
 
   mounted() {
     this.getAsmaulHusna();
@@ -73,5 +76,9 @@ export default {
 <style scoped>
 .card {
   direction: rtl;
+}
+
+.dark {
+  background: rgb(31 41 55);
 }
 </style>
