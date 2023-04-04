@@ -32,32 +32,31 @@
 import axios from "axios";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import Accordion from "../components/Accordion.vue";
+import { onMounted, ref } from "vue";
 export default {
-  data() {
-    return {
-      allTahlil: null,
-    };
-  },
-  components: {
-    DefaultContainer,
-    Accordion,
-  },
+  components: { DefaultContainer, Accordion },
+  setup() {
+    const allTahlil = ref([]);
 
-  created() {
-    this.getTahlil();
-  },
-
-  methods: {
-    async getTahlil() {
+    const getTahlil = async () => {
       try {
         const response = await axios.get(
           "https://islamic-api-zhirrr.vercel.app/api/tahlil"
         );
-        this.allTahlil = response.data.data;
+        let { data } = response.data;
+        allTahlil.value = data;
       } catch (error) {
         console.log(error);
       }
-    },
+    };
+
+    onMounted(() => {
+      getTahlil();
+    });
+
+    return {
+      allTahlil,
+    };
   },
 };
 </script>
