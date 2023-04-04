@@ -43,7 +43,6 @@ import axios from "axios";
 import DefaultContainer from "../components/DefaultContainer.vue";
 
 export default {
-  inject: ["mode"],
   components: { DefaultContainer },
 
   data() {
@@ -76,9 +75,5 @@ export default {
 <style scoped>
 .card {
   direction: rtl;
-}
-
-.dark {
-  background: rgb(31 41 55);
 }
 </style>

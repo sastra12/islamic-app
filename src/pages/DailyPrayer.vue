@@ -33,29 +33,32 @@
 import Accordion from "../components/Accordion.vue";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import axios from "axios";
+import { onMounted, ref } from "vue";
 export default {
   components: { DefaultContainer, Accordion },
-  data() {
-    return {
-      allDoa: null,
-    };
-  },
 
-  created() {
-    this.getDoa();
-  },
+  setup() {
+    const allDoa = ref([]);
 
-  methods: {
-    async getDoa() {
+    const getDoa = async () => {
       try {
         const response = await axios.get(
           "https://islamic-api-zhirrr.vercel.app/api/doaharian"
         );
-        this.allDoa = response.data.data;
+        let { data } = response.data;
+        allDoa.value = data;
       } catch (error) {
         console.log(error);
       }
-    },
+    };
+
+    onMounted(() => {
+      getDoa();
+    });
+
+    return {
+      allDoa,
+    };
   },
 };
 </script>

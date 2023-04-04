@@ -115,40 +115,6 @@ export default {
       showTafsir,
     };
   },
-  // data() {
-  //   return {
-  //     detailsurah: [],
-  //     audio: "",
-  //     activeComponent: "ListCardAyat",
-  //   };
-  // },
-
-  // created() {
-  //   this.getDetailSurah();
-  // },
-
-  // methods: {
-  //   async getDetailSurah() {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://equran.id/api/v2/surat/" + this.$route.params.id
-  //       );
-  //       this.detailsurah = response.data.data;
-  //       this.ayat = this.detailsurah.ayat;
-  //       this.audio = this.detailsurah.audioFull["05"];
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   },
-
-  //   showSurah() {
-  //     this.activeComponent = "ListCardAyat";
-  //   },
-
-  //   showTafsir() {
-  //     this.activeComponent = "TafsirSurah";
-  //   },
-  // },
 };
 </script>
 

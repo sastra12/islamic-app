@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white py-4 px-3 mb-3 rounded-md cursor-pointer" :class="mode">
+  <div class="bg-white py-4 px-3 mb-3 rounded-md cursor-pointer">
     <p class="text-teal-500 font-light">{{ selectedProp.title }}</p>
     <p class="text-right text-xl text-slate-500 mt-2 font-bold">
       {{ selectedProp.arabic }}
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { ref, defineProps, onUpdated, reactive } from "vue";
 export default {
   props: {
     doa: Object,
@@ -42,7 +43,6 @@ export default {
       isOpen: false,
     };
   },
-
   created() {
     this.selectedProp = this.doa ? this.doa : this.tahlil;
   },
