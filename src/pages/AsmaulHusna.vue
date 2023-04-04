@@ -23,16 +23,11 @@
     </div>
 
     <div class="card grid grid-cols-2 min-[435px]:grid-cols-4 gap-2">
-      <div
-        class="py-5 px-3 bg-white"
-        :class="mode"
-        v-for="data in allData"
-        :key="data.index"
-      >
+      <div class="py-5 px-3 bg-white" v-for="data in allData" :key="data.index">
         <p class="text-center text-xl font-semibold text-teal-500">
           {{ data.arabic }}
         </p>
-        <p class="text-center text-[14px] text-teal-500">{{ data.latin }}</p>
+        <p class="text-center text-[12px] text-teal-500">{{ data.latin }}</p>
       </div>
     </div>
   </default-container>
@@ -41,33 +36,32 @@
 <script>
 import axios from "axios";
 import DefaultContainer from "../components/DefaultContainer.vue";
+import { ref, onMounted } from "vue";
 
 export default {
   components: { DefaultContainer },
+  setup() {
+    const allData = ref([]);
 
-  data() {
-    return {
-      allData: null,
-    };
-  },
-
-  created() {},
-
-  mounted() {
-    this.getAsmaulHusna();
-  },
-
-  methods: {
-    async getAsmaulHusna() {
+    const getAsmaulHusna = async () => {
       try {
         const response = await axios.get(
           "https://islamic-api-zhirrr.vercel.app/api/asmaulhusna"
         );
-        this.allData = response.data.data;
+        let { data } = response.data;
+        allData.value = data;
       } catch (error) {
         console.log(error);
       }
-    },
+    };
+
+    onMounted(() => {
+      getAsmaulHusna();
+    });
+
+    return {
+      allData,
+    };
   },
 };
 </script>
