@@ -43,14 +43,14 @@
       <button
         @click="showSurah()"
         type="button"
-        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 bg-white border-r hover:bg-gradient-to-r from-emerald-700 to-teal-500 hover:text-white"
+        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 bg-white border-r hover:bg-gradient-to-r from-emerald-700 to-teal-500 hover:text-white dark:bg-slate-800"
       >
         Surah
       </button>
       <button
         @click="showTafsir()"
         type="button"
-        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 bg-white hover:bg-gradient-to-r from-emerald-700 to-teal-500 hover:text-white"
+        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 bg-white hover:bg-gradient-to-r from-emerald-700 to-teal-500 hover:text-white dark:bg-slate-800"
       >
         Tafsir
       </button>
@@ -71,6 +71,7 @@ import ListCardAyat from "../components/quran/ListCardAyat.vue";
 import TafsirSurah from "../components/quran/TafsirSurah.vue";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import { useDark } from "@vueuse/core";
 
 export default {
   components: { DefaultContainer, ListCardAyat, TafsirSurah },
@@ -80,6 +81,7 @@ export default {
     const audio = ref("");
     const detailsurah = ref([]);
     const currentTab = ref("ListCardAyat");
+    const isDark = useDark();
 
     // mendapatkan detail surat
     const getDetailSurah = async () => {
@@ -105,6 +107,7 @@ export default {
 
     onMounted(() => {
       getDetailSurah();
+      isDark.value;
     });
 
     return {

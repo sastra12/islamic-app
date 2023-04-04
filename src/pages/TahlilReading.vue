@@ -32,11 +32,14 @@
 import axios from "axios";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import Accordion from "../components/Accordion.vue";
+import { useDark } from "@vueuse/core";
 import { onMounted, ref } from "vue";
+
 export default {
   components: { DefaultContainer, Accordion },
   setup() {
     const allTahlil = ref([]);
+    const isDark = useDark();
 
     const getTahlil = async () => {
       try {
@@ -52,6 +55,7 @@ export default {
 
     onMounted(() => {
       getTahlil();
+      isDark.value;
     });
 
     return {

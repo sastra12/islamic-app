@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-center pt-3 font-semibold">Baca Al-Qur'an</h1>
+  <h1 class="text-center pt-3 font-semibold dark:text-white">Baca Al-Qur'an</h1>
   <div class="grid grid-cols-4 gap-4 mt-4">
     <router-link to="/quran">
       <card-menu>
@@ -56,12 +56,6 @@ import CardMenu from "./CardMenu.vue";
 
 export default {
   components: { CardMenu, PrayerSchedule, Footer },
-
-  data() {
-    return {};
-  },
-
-  created() {},
 };
 </script>
 

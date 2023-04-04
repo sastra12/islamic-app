@@ -27,11 +27,19 @@
 </template>
 
 <script>
+import { onMounted } from "vue";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import ListCardSurah from "../components/quran/ListCardSurah.vue";
+import { useDark } from "@vueuse/core";
 
 export default {
   components: { DefaultContainer, ListCardSurah },
+  setup() {
+    const isDark = useDark();
+    onMounted(() => {
+      isDark.value;
+    });
+  },
 };
 </script>
 

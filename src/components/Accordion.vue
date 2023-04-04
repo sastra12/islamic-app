@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-white py-4 px-3 mb-3 rounded-md cursor-pointer">
+  <div
+    class="bg-white py-4 px-3 mb-3 rounded-md cursor-pointer dark:bg-slate-800"
+  >
     <p class="text-teal-500 font-light">{{ selectedProp.data.title }}</p>
     <p class="text-right text-xl text-slate-500 mt-2 font-bold">
       {{ selectedProp.data.arabic }}

@@ -1,7 +1,7 @@
 <template>
   <div class="mt-12">
     <div class="flex justify-center items-center">
-      <h3 class="font-semibold">
+      <h3 class="font-semibold dark:text-white">
         Pilih Waktu Sholat Daerah Anda {{ jadwalSholat.lokasi }}
         <button class="cursor-pointer" @click.prevent="showModal = !showModal">
           <svg
@@ -33,7 +33,7 @@
       @click.self="showModal = false"
     >
       <div class="fixed mx-auto w-4/5 h-1/2 max-w-sm overflow-y-auto top-36">
-        <div class="bg-white mx-auto p-3 z-50">
+        <div class="bg-white mx-auto p-3 z-50 dark:bg-slate-800">
           <header class="flex justify-between">
             <span class="text-teal-500 font-semibold">Daftar Kota</span>
             <button
@@ -50,7 +50,7 @@
               placeholder="Cari Kota"
               v-model="search"
               type="text"
-              class="text-slate-400 border border-teal-500 rounded-sm w-full px-1 py-2 focus:outline-none focus:ring focus:ring-teal-500 bg-white placeholder:text-xs mb-3"
+              class="text-slate-400 border border-teal-500 rounded-sm w-full px-1 py-2 focus:outline-none focus:ring focus:ring-teal-500 bg-white placeholder:text-xs mb-3 dark:bg-slate-800"
             />
           </form>
 
@@ -127,8 +127,11 @@
 <script>
 import axios from "axios";
 import { onMounted, ref, computed, reactive } from "vue";
+import { useDark } from "@vueuse/core";
+
 export default {
   setup() {
+    const isDark = useDark();
     const showModal = ref(false);
     const search = ref("");
     const jadwalSholat = reactive({
@@ -225,6 +228,7 @@ export default {
     onMounted(() => {
       getAllLocation();
       getDefaultLocation();
+      isDark.value;
     });
 
     return {
@@ -235,142 +239,6 @@ export default {
       getDynamicLocation,
     };
   },
-  // data() {
-  //   return {
-  //     showModal: false,
-  //     allProperti: [],
-  //     search: "",
-  //     allDatalokasi: null,
-  //     jadwal: [],
-  //   };
-  // },
-
-  // created() {
-  //   this.getDefaultLocation();
-  //   this.getAllLocation();
-  // },
-
-  // computed: {
-  //   filteredCity() {
-  //     return this.allDatalokasi.filter((city) =>
-  //       city.lokasi.toLowerCase().includes(this.search.toLowerCase())
-  //     );
-  //   },
-  // },
-
-  // methods: {
-  //   // get all lokasi
-  //   async getAllLocation() {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://api.myquran.com/v1/sholat/kota/semua"
-  //       );
-  //       this.allDatalokasi = response.data;
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   },
-
-  //   // get current date
-  //   getCurrentDate() {
-  //     const day = [
-  //       "Minggu",
-  //       "Senin",
-  //       "Selasa",
-  //       "Rabu",
-  //       "Kamis",
-  //       "Jumat",
-  //       "Sabtu",
-  //     ];
-
-  //     const indexMonth = [
-  //       "Januari",
-  //       "Februari",
-  //       "Maret",
-  //       "April",
-  //       "Mei",
-  //       "Juni",
-  //       "Juli",
-  //       "Agustus",
-  //       "September",
-  //       "Oktober",
-  //       "November",
-  //       "Desember",
-  //     ];
-
-  //     const current = new Date();
-  //     const dayIndex = current.getDay();
-  //     const date = `${day[dayIndex]}, ${current.getDate()} ${
-  //       indexMonth[current.getMonth() + 1]
-  //     } ${current.getFullYear()}`;
-  //     return date;
-  //   },
-
-  //   getDate() {
-  //     const current = new Date();
-  //     const date = `${current.getFullYear()}/${
-  //       current.getMonth() + 1
-  //     }/${current.getDate()}`;
-  //     return date;
-  //   },
-
-  //   // get default lokasi
-  //   async getDefaultLocation() {
-  //     // mengambil data dari local storage
-  //     const dataString = localStorage.getItem("lokasi");
-  //     const data = JSON.parse(dataString);
-  //     if (dataString) {
-  //       try {
-  //         const response = await axios.get(
-  //           "https://api.myquran.com/v1/sholat/jadwal/" +
-  //             data.id +
-  //             "/" +
-  //             this.getDate()
-  //         );
-  //         this.allProperti = response.data.data;
-  //         this.jadwal = this.allProperti.jadwal;
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     } else {
-  //       try {
-  //         const response = await axios.get(
-  //           "https://api.myquran.com/v1/sholat/jadwal/" +
-  //             "1602" +
-  //             "/" +
-  //             this.getDate()
-  //         );
-  //         this.allProperti = response.data.data;
-  //         this.jadwal = this.allProperti.jadwal;
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //   },
-
-  //   async getDynamicLocation(id) {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://api.myquran.com/v1/sholat/jadwal/" +
-  //           id +
-  //           "/" +
-  //           this.getDate()
-  //       );
-  //       this.allProperti = response.data.data;
-  //       this.showModal = false;
-  //       this.jadwal = this.allProperti.jadwal;
-  //       this.search = "";
-  //       localStorage.setItem(
-  //         "lokasi",
-  //         JSON.stringify({
-  //           id: this.allProperti.id,
-  //         })
-  //       );
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   },
-  // },
 };
 </script>
 

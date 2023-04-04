@@ -4,7 +4,7 @@
       v-model="search"
       placeholder="Cari Surah"
       type="text"
-      class="text-slate-400 rounded-sm w-full px-3 py-2 focus:outline-none focus:ring focus:ring-teal-500 bg-white"
+      class="text-slate-400 rounded-sm w-full px-3 py-2 focus:outline-none focus:ring focus:ring-teal-500 bg-white dark:bg-slate-800"
     />
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,7 @@
   </div>
 
   <div
-    class="bg-white py-2 rounded-md px-3 mb-3"
+    class="bg-white py-2 rounded-md px-3 mb-3 dark:bg-slate-800"
     v-for="surah in searchSurah"
     :key="surah.nomor"
   >

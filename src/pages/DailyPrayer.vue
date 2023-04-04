@@ -34,11 +34,14 @@ import Accordion from "../components/Accordion.vue";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import axios from "axios";
 import { onMounted, ref } from "vue";
+import { useDark } from "@vueuse/core";
+
 export default {
   components: { DefaultContainer, Accordion },
 
   setup() {
     const allDoa = ref([]);
+    const isDark = useDark();
 
     const getDoa = async () => {
       try {
@@ -54,6 +57,7 @@ export default {
 
     onMounted(() => {
       getDoa();
+      isDark.value;
     });
 
     return {

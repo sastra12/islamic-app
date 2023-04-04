@@ -23,7 +23,11 @@
     </div>
 
     <div class="card grid grid-cols-2 min-[435px]:grid-cols-4 gap-2">
-      <div class="py-5 px-3 bg-white" v-for="data in allData" :key="data.index">
+      <div
+        class="py-5 px-3 bg-white dark:bg-slate-800"
+        v-for="data in allData"
+        :key="data.index"
+      >
         <p class="text-center text-xl font-semibold text-teal-500">
           {{ data.arabic }}
         </p>
@@ -37,11 +41,13 @@
 import axios from "axios";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import { ref, onMounted } from "vue";
+import { useDark } from "@vueuse/core";
 
 export default {
   components: { DefaultContainer },
   setup() {
     const allData = ref([]);
+    const isDark = useDark();
 
     const getAsmaulHusna = async () => {
       try {
@@ -57,6 +63,7 @@ export default {
 
     onMounted(() => {
       getAsmaulHusna();
+      isDark.value;
     });
 
     return {

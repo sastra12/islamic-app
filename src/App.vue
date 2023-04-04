@@ -10,13 +10,7 @@
 
 
 <script>
-export default {
-  data() {
-    return {};
-  },
-
-  mounted() {},
-};
+export default {};
 </script>
 <style>
 .route-enter-from {
@@ -37,7 +31,7 @@ export default {
   transition: all 0.3s ease-in;
 }
 
-.dark {
-  background: rgb(3 7 18);
+html.dark {
+  color-scheme: dark;
 }
 </style>
