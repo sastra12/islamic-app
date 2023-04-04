@@ -2,7 +2,7 @@
   <div class="mt-12">
     <div class="flex justify-center items-center">
       <h3 class="font-semibold">
-        Pilih Waktu Sholat Daerah Anda {{ allProperti.lokasi }}
+        Pilih Waktu Sholat Daerah Anda {{ jadwalSholat.lokasi }}
         <button class="cursor-pointer" @click.prevent="showModal = !showModal">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@
 
     <div class="mt-1">
       <h3 class="text-center text-slate-400 font-light">
-        {{ getCurrentDate() }}
+        {{ jadwalSholat.jadwal.tanggal }}
       </h3>
     </div>
 
@@ -74,65 +74,51 @@
         class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Imsak</p>
-        <p class="text-white font-semibold">
-          {{ jadwal.imsak }}
-        </p>
+        <p class="text-white font-semibold">{{ jadwalSholat.jadwal.imsak }}</p>
       </div>
       <div
         class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Subuh</p>
-        <p class="text-white font-semibold">
-          {{ jadwal.subuh }}
-        </p>
+        <p class="text-white font-semibold">{{ jadwalSholat.jadwal.subuh }}</p>
       </div>
       <div
         class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Terbit</p>
-        <p class="text-white font-semibold">
-          {{ jadwal.terbit }}
-        </p>
+        <p class="text-white font-semibold">{{ jadwalSholat.jadwal.terbit }}</p>
       </div>
       <div
         class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Dhuha</p>
-        <p class="text-white font-semibold">
-          {{ jadwal.dhuha }}
-        </p>
+        <p class="text-white font-semibold">{{ jadwalSholat.jadwal.dhuha }}</p>
       </div>
       <div
         class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Dhuhur</p>
-        <p class="text-white font-semibold">
-          {{ jadwal.dzuhur }}
-        </p>
+        <p class="text-white font-semibold">{{ jadwalSholat.jadwal.dzuhur }}</p>
       </div>
       <div
         class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Ashar</p>
-        <p class="text-white font-semibold">
-          {{ jadwal.ashar }}
-        </p>
+        <p class="text-white font-semibold">{{ jadwalSholat.jadwal.ashar }}</p>
       </div>
       <div
         class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Magrib</p>
         <p class="text-white font-semibold">
-          {{ jadwal.maghrib }}
+          {{ jadwalSholat.jadwal.maghrib }}
         </p>
       </div>
       <div
         class="bg-gradient-to-r from-emerald-700 to-teal-500 p-2 text-center rounded-md"
       >
         <p class="text-white text-sm">Isya</p>
-        <p class="text-white font-semibold">
-          {{ jadwal.isya }}
-        </p>
+        <p class="text-white font-semibold">{{ jadwalSholat.jadwal.isya }}</p>
       </div>
     </div>
   </div>
@@ -140,143 +126,251 @@
 
 <script>
 import axios from "axios";
+import { onMounted, ref, computed, reactive } from "vue";
 export default {
-  data() {
-    return {
-      showModal: false,
-      allProperti: [],
-      search: "",
-      allDatalokasi: null,
+  setup() {
+    const showModal = ref(false);
+    const search = ref("");
+    const jadwalSholat = reactive({
+      id: null,
+      lokasi: "",
       jadwal: [],
-    };
-  },
+    });
+    const allDatalokasi = ref([]);
 
-  created() {
-    this.getDefaultLocation();
-    this.getAllLocation();
-  },
-
-  computed: {
-    filteredCity() {
-      return this.allDatalokasi.filter((city) =>
-        city.lokasi.toLowerCase().includes(this.search.toLowerCase())
-      );
-    },
-  },
-
-  methods: {
-    // get all lokasi
-    async getAllLocation() {
+    // method buat get data lokasi
+    const getAllLocation = async () => {
       try {
         const response = await axios.get(
           "https://api.myquran.com/v1/sholat/kota/semua"
         );
-        this.allDatalokasi = response.data;
-      } catch (error) {
-        console.log(error);
-      }
-    },
+        allDatalokasi.value = response.data;
+      } catch (error) {}
+    };
 
-    // get current date
-    getCurrentDate() {
-      const day = [
-        "Minggu",
-        "Senin",
-        "Selasa",
-        "Rabu",
-        "Kamis",
-        "Jumat",
-        "Sabtu",
-      ];
-
-      const indexMonth = [
-        "Januari",
-        "Februari",
-        "Maret",
-        "April",
-        "Mei",
-        "Juni",
-        "Juli",
-        "Agustus",
-        "September",
-        "Oktober",
-        "November",
-        "Desember",
-      ];
-
-      const current = new Date();
-      const dayIndex = current.getDay();
-      const date = `${day[dayIndex]}, ${current.getDate()} ${
-        indexMonth[current.getMonth() + 1]
-      } ${current.getFullYear()}`;
-      return date;
-    },
-
-    getDate() {
+    // method mengambil tanggal saat ini dengan format 2023/04/1
+    const getDate = () => {
       const current = new Date();
       const date = `${current.getFullYear()}/${
         current.getMonth() + 1
       }/${current.getDate()}`;
       return date;
-    },
+    };
 
-    // get default lokasi
-    async getDefaultLocation() {
-      // mengambil data dari local storage
-      const dataString = localStorage.getItem("lokasi");
-      const data = JSON.parse(dataString);
-      if (dataString) {
+    // method untuk mendapatkan jadwal berdasarkan lokasi dan tgl saat ini
+    const getDefaultLocation = async () => {
+      const idLocation = JSON.parse(localStorage.getItem("lokasi"));
+      if (idLocation) {
         try {
           const response = await axios.get(
             "https://api.myquran.com/v1/sholat/jadwal/" +
-              data.id +
+              idLocation.id +
               "/" +
-              this.getDate()
+              getDate()
           );
-          this.allProperti = response.data.data;
-          this.jadwal = this.allProperti.jadwal;
+          let { data } = response.data;
+          jadwalSholat.lokasi = data.lokasi;
+          jadwalSholat.jadwal = data.jadwal;
         } catch (error) {
           console.log(error);
         }
       } else {
+        // jika tidak ada lokasi id di local storage maka jalankan ini
         try {
           const response = await axios.get(
             "https://api.myquran.com/v1/sholat/jadwal/" +
               "1602" +
               "/" +
-              this.getDate()
+              getDate()
           );
-          this.allProperti = response.data.data;
-          this.jadwal = this.allProperti.jadwal;
+          let { data } = response.data;
+          jadwalSholat.lokasi = data.lokasi;
+          jadwalSholat.jadwal = data.jadwal;
         } catch (error) {
           console.log(error);
         }
       }
-    },
+    };
 
-    async getDynamicLocation(id) {
+    // method untuk mendapatkan lokasi dinamis
+    const getDynamicLocation = async (id) => {
       try {
         const response = await axios.get(
-          "https://api.myquran.com/v1/sholat/jadwal/" +
-            id +
-            "/" +
-            this.getDate()
+          "https://api.myquran.com/v1/sholat/jadwal/" + id + "/" + getDate()
         );
-        this.allProperti = response.data.data;
-        this.showModal = false;
-        this.jadwal = this.allProperti.jadwal;
-        this.search = "";
+        let { data } = response.data;
+        jadwalSholat.lokasi = data.lokasi;
+        jadwalSholat.jadwal = data.jadwal;
+        jadwalSholat.id = data.id;
+        showModal.value = false;
+        search.value = "";
         localStorage.setItem(
           "lokasi",
           JSON.stringify({
-            id: this.allProperti.id,
+            id: jadwalSholat.id,
           })
         );
       } catch (error) {
         console.log(error);
       }
-    },
+    };
+
+    // untuk filter kota dengan computed
+    const filteredCity = computed(() => {
+      return allDatalokasi.value.filter((city) =>
+        city.lokasi.toLowerCase().includes(search.value.toLowerCase())
+      );
+    });
+
+    onMounted(() => {
+      getAllLocation();
+      getDefaultLocation();
+    });
+
+    return {
+      showModal,
+      filteredCity,
+      search,
+      jadwalSholat,
+      getDynamicLocation,
+    };
   },
+  // data() {
+  //   return {
+  //     showModal: false,
+  //     allProperti: [],
+  //     search: "",
+  //     allDatalokasi: null,
+  //     jadwal: [],
+  //   };
+  // },
+
+  // created() {
+  //   this.getDefaultLocation();
+  //   this.getAllLocation();
+  // },
+
+  // computed: {
+  //   filteredCity() {
+  //     return this.allDatalokasi.filter((city) =>
+  //       city.lokasi.toLowerCase().includes(this.search.toLowerCase())
+  //     );
+  //   },
+  // },
+
+  // methods: {
+  //   // get all lokasi
+  //   async getAllLocation() {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://api.myquran.com/v1/sholat/kota/semua"
+  //       );
+  //       this.allDatalokasi = response.data;
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   },
+
+  //   // get current date
+  //   getCurrentDate() {
+  //     const day = [
+  //       "Minggu",
+  //       "Senin",
+  //       "Selasa",
+  //       "Rabu",
+  //       "Kamis",
+  //       "Jumat",
+  //       "Sabtu",
+  //     ];
+
+  //     const indexMonth = [
+  //       "Januari",
+  //       "Februari",
+  //       "Maret",
+  //       "April",
+  //       "Mei",
+  //       "Juni",
+  //       "Juli",
+  //       "Agustus",
+  //       "September",
+  //       "Oktober",
+  //       "November",
+  //       "Desember",
+  //     ];
+
+  //     const current = new Date();
+  //     const dayIndex = current.getDay();
+  //     const date = `${day[dayIndex]}, ${current.getDate()} ${
+  //       indexMonth[current.getMonth() + 1]
+  //     } ${current.getFullYear()}`;
+  //     return date;
+  //   },
+
+  //   getDate() {
+  //     const current = new Date();
+  //     const date = `${current.getFullYear()}/${
+  //       current.getMonth() + 1
+  //     }/${current.getDate()}`;
+  //     return date;
+  //   },
+
+  //   // get default lokasi
+  //   async getDefaultLocation() {
+  //     // mengambil data dari local storage
+  //     const dataString = localStorage.getItem("lokasi");
+  //     const data = JSON.parse(dataString);
+  //     if (dataString) {
+  //       try {
+  //         const response = await axios.get(
+  //           "https://api.myquran.com/v1/sholat/jadwal/" +
+  //             data.id +
+  //             "/" +
+  //             this.getDate()
+  //         );
+  //         this.allProperti = response.data.data;
+  //         this.jadwal = this.allProperti.jadwal;
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     } else {
+  //       try {
+  //         const response = await axios.get(
+  //           "https://api.myquran.com/v1/sholat/jadwal/" +
+  //             "1602" +
+  //             "/" +
+  //             this.getDate()
+  //         );
+  //         this.allProperti = response.data.data;
+  //         this.jadwal = this.allProperti.jadwal;
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     }
+  //   },
+
+  //   async getDynamicLocation(id) {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://api.myquran.com/v1/sholat/jadwal/" +
+  //           id +
+  //           "/" +
+  //           this.getDate()
+  //       );
+  //       this.allProperti = response.data.data;
+  //       this.showModal = false;
+  //       this.jadwal = this.allProperti.jadwal;
+  //       this.search = "";
+  //       localStorage.setItem(
+  //         "lokasi",
+  //         JSON.stringify({
+  //           id: this.allProperti.id,
+  //         })
+  //       );
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   },
+  // },
 };
 </script>
 

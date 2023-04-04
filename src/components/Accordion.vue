@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
 export default {
   props: {
     doa: {
@@ -55,20 +55,6 @@ export default {
       isOpen,
     };
   },
-
-  // props: {
-  //   doa: Object,
-  //   tahlil: Object,
-  // },
-  // data() {
-  //   return {
-  //     selectedProp: "",
-  //     isOpen: false,
-  //   };
-  // },
-  // created() {
-  //   this.selectedProp = this.doa ? this.doa : this.tahlil;
-  // },
 };
 </script>
 
