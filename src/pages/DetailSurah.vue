@@ -28,33 +28,37 @@
         <p class="text-white mb-2">
           {{ detailsurah.namaLatin }} - {{ detailsurah.jumlahAyat }} Ayat
         </p>
-        <hr />
+
         <h4 class="text-[28px] text-white text-center mt-2">
           بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
         </h4>
-        <audio class="w-4/5 h-8 mt-4 mx-auto" :src="audio" controls></audio>
+        <audio
+          class="w-4/5 h-8 mt-4 mb-4 mx-auto"
+          :src="audio"
+          controls
+        ></audio>
       </div>
     </div>
     <div class="inline-flex rounded-md shadow-sm w-full" role="group">
       <button
         @click="showSurah()"
         type="button"
-        class="w-1/2 px-4 py-2 text-sm font-medium text-emerald-400 bg-white border-r hover:bg-gradient-to-r from-emerald-700 to-teal-500 hover:text-white"
+        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 bg-white border-r hover:bg-gradient-to-r from-emerald-700 to-teal-500 hover:text-white"
       >
         Surah
       </button>
       <button
         @click="showTafsir()"
         type="button"
-        class="w-1/2 px-4 py-2 text-sm font-medium text-emerald-400 bg-white hover:bg-gradient-to-r from-emerald-700 to-teal-500 hover:text-white"
+        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 bg-white hover:bg-gradient-to-r from-emerald-700 to-teal-500 hover:text-white"
       >
         Tafsir
       </button>
     </div>
-    <!-- card ayat -->
+
     <div class="mt-4">
       <keep-alive>
-        <component :is="activeComponent" :ayats="detailsurah.ayat" />
+        <component :is="currentTab" :ayats="detailsurah.ayat" />
       </keep-alive>
     </div>
   </default-container>
@@ -65,44 +69,86 @@ import axios from "axios";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import ListCardAyat from "../components/quran/ListCardAyat.vue";
 import TafsirSurah from "../components/quran/TafsirSurah.vue";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
 export default {
   components: { DefaultContainer, ListCardAyat, TafsirSurah },
 
-  data() {
-    return {
-      detailsurah: [],
-      audio: "",
-      activeComponent: "ListCardAyat",
-    };
-  },
+  setup() {
+    const route = useRoute();
+    const audio = ref("");
+    const detailsurah = ref([]);
+    const currentTab = ref("ListCardAyat");
 
-  created() {
-    this.getDetailSurah();
-  },
-
-  methods: {
-    async getDetailSurah() {
+    // mendapatkan detail surat
+    const getDetailSurah = async () => {
       try {
         const response = await axios.get(
-          "https://equran.id/api/v2/surat/" + this.$route.params.id
+          "https://equran.id/api/v2/surat/" + route.params.id
         );
-        this.detailsurah = response.data.data;
-        this.ayat = this.detailsurah.ayat;
-        this.audio = this.detailsurah.audioFull["05"];
+        let { data } = response.data;
+        detailsurah.value = data;
+        audio.value = detailsurah.value.audioFull["05"];
       } catch (error) {
         console.log(error);
       }
-    },
+    };
 
-    showSurah() {
-      this.activeComponent = "ListCardAyat";
-    },
+    const showSurah = () => {
+      currentTab.value = "ListCardAyat";
+    };
 
-    showTafsir() {
-      this.activeComponent = "TafsirSurah";
-    },
+    const showTafsir = () => {
+      currentTab.value = "TafsirSurah";
+    };
+
+    onMounted(() => {
+      getDetailSurah();
+    });
+
+    return {
+      detailsurah,
+      audio,
+      currentTab,
+      showSurah,
+      showTafsir,
+    };
   },
+  // data() {
+  //   return {
+  //     detailsurah: [],
+  //     audio: "",
+  //     activeComponent: "ListCardAyat",
+  //   };
+  // },
+
+  // created() {
+  //   this.getDetailSurah();
+  // },
+
+  // methods: {
+  //   async getDetailSurah() {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://equran.id/api/v2/surat/" + this.$route.params.id
+  //       );
+  //       this.detailsurah = response.data.data;
+  //       this.ayat = this.detailsurah.ayat;
+  //       this.audio = this.detailsurah.audioFull["05"];
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   },
+
+  //   showSurah() {
+  //     this.activeComponent = "ListCardAyat";
+  //   },
+
+  //   showTafsir() {
+  //     this.activeComponent = "TafsirSurah";
+  //   },
+  // },
 };
 </script>
 
