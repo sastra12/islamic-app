@@ -32,7 +32,6 @@
 
 <script>
 export default {
-  inject: ["mode"],
   props: {
     doa: Object,
     tahlil: Object,
@@ -51,7 +50,4 @@ export default {
 </script>
 
 <style scoped>
-.dark {
-  background: rgb(31 41 55);
-}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="mt-12">
     <div class="flex justify-center items-center">
-      <h3 class="font-semibold" :class="selectedColor">
+      <h3 class="font-semibold">
         Pilih Waktu Sholat Daerah Anda {{ allProperti.lokasi }}
         <button class="cursor-pointer" @click.prevent="showModal = !showModal">
           <svg
@@ -141,10 +141,8 @@
 <script>
 import axios from "axios";
 export default {
-  inject: ["mode"],
   data() {
     return {
-      selectedColor: "",
       showModal: false,
       allProperti: [],
       search: "",
@@ -156,10 +154,6 @@ export default {
   created() {
     this.getDefaultLocation();
     this.getAllLocation();
-    this.selectedColor =
-      this.mode != "dark"
-        ? (this.selectedColor = "text-slate-600")
-        : (this.selectedColor = "text-white");
   },
 
   computed: {

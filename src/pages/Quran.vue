@@ -28,11 +28,10 @@
 
 <script>
 import DefaultContainer from "../components/DefaultContainer.vue";
-import Logo from "../components/Logo.vue";
 import ListCardSurah from "../components/quran/ListCardSurah.vue";
 
 export default {
-  components: { DefaultContainer, Logo, ListCardSurah },
+  components: { DefaultContainer, ListCardSurah },
 };
 </script>
 

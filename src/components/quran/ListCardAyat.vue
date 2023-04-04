@@ -1,7 +1,6 @@
 <template>
   <div
     class="bg-white py-4 px-3 mb-3 rounded-md"
-    :class="mode"
     v-for="ayat in ayats"
     :key="ayat.nomorAyat"
   >
@@ -39,28 +38,15 @@
 
 <script>
 export default {
-  inject: ["mode"],
   props: {
     ayats: Object,
   },
 
   data() {
-    return {
-      selectedColor: "",
-    };
-  },
-
-  created() {
-    this.selectedColor =
-      this.mode != "dark"
-        ? (this.selectedColor = "text-slate-600")
-        : (this.selectedColor = "text-white");
+    return {};
   },
 };
 </script>
 
 <style scoped>
-.dark {
-  background: rgb(31 41 55);
-}
 </style>

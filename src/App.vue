@@ -1,5 +1,5 @@
 <template>
-  <div :class="mode">
+  <div>
     <router-view v-slot="{ Component }">
       <transition name="route">
         <component :is="Component" />
@@ -12,18 +12,10 @@
 <script>
 export default {
   data() {
-    return {
-      mode: "dark",
-    };
+    return {};
   },
 
   mounted() {},
-
-  provide() {
-    return {
-      mode: this.mode,
-    };
-  },
 };
 </script>
 <style>

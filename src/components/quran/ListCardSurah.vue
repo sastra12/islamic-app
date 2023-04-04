@@ -5,7 +5,6 @@
       placeholder="Cari Surah"
       type="text"
       class="text-slate-400 rounded-sm w-full px-3 py-2 focus:outline-none focus:ring focus:ring-teal-500 bg-white"
-      :class="mode"
     />
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +24,7 @@
 
   <div
     class="bg-white py-2 rounded-md px-3 mb-3"
-    :class="mode"
-    v-for="surah in filteredSurah"
+    v-for="surah in searchSurah"
     :key="surah.nomor"
   >
     <router-link :to="`surat/${surah.nomor}`">
@@ -56,7 +54,8 @@
         <div class="ml-3">
           <h3 class="text-teal-500">{{ surah.namaLatin }}</h3>
           <p class="text-[12px] text-slate-400">
-            {{ convertToTypeSurah(surah.nomor) }}, {{ surah.jumlahAyat }} Ayat
+            {{ convertToTypeSurah(surah.tempatTurun) }},
+            {{ surah.jumlahAyat }} Ayat
           </p>
         </div>
         <div class="ml-auto my-auto">
@@ -69,58 +68,47 @@
 
 <script>
 import axios from "axios";
+import { computed, onMounted, ref } from "vue";
 export default {
-  inject: ["mode"],
-  data() {
-    return {
-      selectedColor: "",
-      search: "",
-      surahs: [],
-    };
-  },
+  setup() {
+    const search = ref("");
+    const surahs = ref([]);
 
-  computed: {
-    filteredSurah() {
-      return this.surahs.filter((surah) =>
-        surah.namaLatin.toLowerCase().includes(this.search.toLowerCase())
-      );
-    },
-  },
-
-  created() {
-    this.getDataSurah();
-    this.selectedColor =
-      this.mode != "dark"
-        ? (this.selectedColor = "text-slate-600")
-        : (this.selectedColor = "text-white");
-  },
-
-  mounted() {},
-
-  methods: {
-    convertToTypeSurah(nomor) {
-      for (let i = 0; i < this.surahs.length; i++) {
-        if (this.surahs[i].nomor == nomor) {
-          return this.surahs[i].tempatTurun == "Mekah"
-            ? "Makkiyah"
-            : "Madaniyyah";
-        }
-      }
-    },
-    async getDataSurah() {
+    const getSurahs = async () => {
       try {
         const response = await axios.get("https://equran.id/api/v2/surat");
-        this.surahs = response.data.data;
+        let { data } = response.data;
+        surahs.value = data;
       } catch (error) {
         console.log(error);
       }
-    },
+    };
+
+    // untuk mereturn makkiyah atau madaniyyah
+    const convertToTypeSurah = (place) => {
+      return place == "Mekah" ? "Makkiyah" : "Madaniyyah";
+    };
+
+    // untuk filter surah
+    const searchSurah = computed(() => {
+      return surahs.value.filter((surah) =>
+        surah.namaLatin.toLowerCase().includes(search.value.toLowerCase())
+      );
+    });
+
+    onMounted(() => {
+      getSurahs();
+    });
+
+    return {
+      surahs,
+      convertToTypeSurah,
+      searchSurah,
+      search,
+    };
   },
 };
 </script>
 
 <style scoped>
-.dark {
-  background: rgb(31 41 55);
-}
 </style>
