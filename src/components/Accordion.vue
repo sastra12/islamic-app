@@ -1,8 +1,8 @@
 <template>
   <div class="bg-white py-4 px-3 mb-3 rounded-md cursor-pointer">
-    <p class="text-teal-500 font-light">{{ selectedProp.title }}</p>
+    <p class="text-teal-500 font-light">{{ selectedProp.data.title }}</p>
     <p class="text-right text-xl text-slate-500 mt-2 font-bold">
-      {{ selectedProp.arabic }}
+      {{ selectedProp.data.arabic }}
     </p>
     <svg
       @click="isOpen = !isOpen"
@@ -31,21 +31,44 @@
 </template>
 
 <script>
-import { ref, defineProps, onUpdated, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 export default {
   props: {
-    doa: Object,
-    tahlil: Object,
+    doa: {
+      type: Object,
+    },
+    tahlil: {
+      type: Object,
+    },
   },
-  data() {
+  setup(props) {
+    const isOpen = ref(false);
+    const selectedProp = reactive({
+      data: null,
+    });
+
+    // update data
+    selectedProp.data = props.doa ? props.doa : props.tahlil;
+
     return {
-      selectedProp: "",
-      isOpen: false,
+      selectedProp,
+      isOpen,
     };
   },
-  created() {
-    this.selectedProp = this.doa ? this.doa : this.tahlil;
-  },
+
+  // props: {
+  //   doa: Object,
+  //   tahlil: Object,
+  // },
+  // data() {
+  //   return {
+  //     selectedProp: "",
+  //     isOpen: false,
+  //   };
+  // },
+  // created() {
+  //   this.selectedProp = this.doa ? this.doa : this.tahlil;
+  // },
 };
 </script>
 
