@@ -1,13 +1,14 @@
 <template>
   <h1 class="text-center pt-3 font-semibold dark:text-white">Baca Al-Qur'an</h1>
-  <div class="grid grid-cols-4 gap-4 mt-4">
+  <div class="grid grid-cols-2 min-[435px]:grid-cols-4 gap-4 mt-4">
     <router-link to="/quran">
       <card-menu>
         <img
           src="/image/quran.webp"
           alt=""
-          class="w-10 h-10 text-center mx-auto"
+          class="w-7 h-7 text-center mx-auto"
         />
+        <p class="text-[12px] mt-2 text-white text-center">Al Quran</p>
       </card-menu>
     </router-link>
 
@@ -16,8 +17,9 @@
         <img
           src="/image/allah.webp"
           alt=""
-          class="w-10 h-10 text-center mx-auto"
+          class="w-7 h-7 text-center mx-auto"
         />
+        <p class="text-[12px] mt-2 text-white text-center">Asmaul Husna</p>
       </card-menu>
     </router-link>
 
@@ -26,8 +28,9 @@
         ><img
           src="/image/praying.webp"
           alt=""
-          class="w-10 h-10 text-center mx-auto"
+          class="w-7 h-7 text-center mx-auto"
         />
+        <p class="text-[12px] mt-2 text-white text-center">Doa Harian</p>
       </card-menu>
     </router-link>
 
@@ -36,8 +39,9 @@
         ><img
           src="/image/tasbih.webp"
           alt=""
-          class="w-10 h-10 text-center mx-auto"
+          class="w-7 h-7 text-center mx-auto"
         />
+        <p class="text-[12px] mt-2 text-white text-center">Bacaan Tahlil</p>
       </card-menu>
     </router-link>
   </div>
