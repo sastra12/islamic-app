@@ -1,6 +1,6 @@
 # islamic-app
 
-This template should help get you started developing with Vue 3 in Vite.
+Islamic web application is a website that has several features such as the Quran, prayer schedules various locations in indonesia, Beautiful Names, daily prayers and Tahlil readings. I created this simple website using Vue.JS and Tailwind CSS as well as utilizing public APIs
 
 ## Recommended IDE Setup
 
