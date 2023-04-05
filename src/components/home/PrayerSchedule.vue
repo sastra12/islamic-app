@@ -43,7 +43,7 @@
               Close
             </button>
           </header>
-          <hr class="mt-2 mb-4" />
+          <hr class="mt-2 mb-4 dark:border-teal-500" />
 
           <form>
             <input
