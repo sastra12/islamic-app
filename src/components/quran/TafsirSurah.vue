@@ -19,16 +19,16 @@
             fill="currentColor"
           />
           <text
-            class="text-sm"
+            class="text-[10px]"
             x="50%"
-            y="64%"
+            y="60%"
             text-anchor="middle"
             fill="currentColor"
           >
             {{ tafsir.ayat }}
           </text>
         </svg>
-        <p class="ml-3 text-[12px] text-slate-400">
+        <p class="ml-3 text-[11px] text-slate-400">
           {{ tafsir.teks }}
         </p>
       </div>

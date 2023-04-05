@@ -4,9 +4,9 @@
     v-for="ayat in ayats"
     :key="ayat.nomorAyat"
   >
-    <div class="flex">
+    <div class="">
       <svg
-        class="text-teal-500 transition duration-[500ms]"
+        class="text-teal-500 transition duration-[500ms] mx-auto mb-2"
         width="37"
         height="36"
         viewBox="0 0 37 36"
@@ -18,9 +18,9 @@
           fill="currentColor"
         />
         <text
-          class="text-sm"
+          class="text-[10px]"
           x="50%"
-          y="64%"
+          y="60%"
           text-anchor="middle"
           fill="currentColor"
         >
