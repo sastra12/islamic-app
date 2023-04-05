@@ -43,14 +43,16 @@
       <button
         @click="showSurah()"
         type="button"
-        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 bg-white border-r hover:bg-gradient-to-r from-emerald-700 to-teal-500 hover:text-white dark:bg-slate-800"
+        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 border-r dark:bg-slate-800"
+        :class="colorDefaultButton.ListAyat ? colorDefaultButton.class : ''"
       >
         Surah
       </button>
       <button
         @click="showTafsir()"
         type="button"
-        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 bg-white hover:bg-gradient-to-r from-emerald-700 to-teal-500 hover:text-white dark:bg-slate-800"
+        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 dark:bg-slate-800"
+        :class="colorDefaultButton.TafsirSurah ? colorDefaultButton.class : ''"
       >
         Tafsir
       </button>
@@ -69,7 +71,7 @@ import axios from "axios";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import ListCardAyat from "../components/quran/ListCardAyat.vue";
 import TafsirSurah from "../components/quran/TafsirSurah.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useDark } from "@vueuse/core";
 
@@ -82,6 +84,11 @@ export default {
     const detailsurah = ref([]);
     const currentTab = ref("ListCardAyat");
     const isDark = useDark();
+    const colorDefaultButton = reactive({
+      class: "bg-gradient-to-r from-emerald-700 to-teal-500 text-white",
+      ListAyat: true,
+      TafsirSurah: false,
+    });
 
     // mendapatkan detail surat
     const getDetailSurah = async () => {
@@ -99,10 +106,14 @@ export default {
 
     const showSurah = () => {
       currentTab.value = "ListCardAyat";
+      colorDefaultButton.TafsirSurah = false;
+      colorDefaultButton.ListAyat = true;
     };
 
     const showTafsir = () => {
       currentTab.value = "TafsirSurah";
+      colorDefaultButton.ListAyat = false;
+      colorDefaultButton.TafsirSurah = true;
     };
 
     onMounted(() => {
@@ -116,6 +127,7 @@ export default {
       currentTab,
       showSurah,
       showTafsir,
+      colorDefaultButton,
     };
   },
 };
