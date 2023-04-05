@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import ListCardSurah from "../components/quran/ListCardSurah.vue";
 import { useDark } from "@vueuse/core";
@@ -39,6 +39,8 @@ export default {
     onMounted(() => {
       isDark.value;
     });
+
+    return {};
   },
 };
 </script>

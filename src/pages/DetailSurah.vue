@@ -43,7 +43,7 @@
       <button
         @click="showSurah()"
         type="button"
-        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 border-r dark:bg-slate-800"
+        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 border-r dark:bg-slate-800 bg-white"
         :class="colorDefaultButton.ListAyat ? colorDefaultButton.class : ''"
       >
         Surah
@@ -51,7 +51,7 @@
       <button
         @click="showTafsir()"
         type="button"
-        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 dark:bg-slate-800"
+        class="w-1/2 px-4 py-2 text-sm font-medium text-teal-500 dark:bg-slate-800 bg-white"
         :class="colorDefaultButton.TafsirSurah ? colorDefaultButton.class : ''"
       >
         Tafsir
