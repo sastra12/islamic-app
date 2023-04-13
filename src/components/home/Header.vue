@@ -42,10 +42,10 @@
     <div class="p-3">
       <p class="font-sans text-white text-xl">
         Lebih Seru dan Mudah Dengan
-        <span class="font-semibold">Islamic App</span>
+        <span class="font-semibold text-yellow-400">Islamic App</span>
       </p>
       <span class="font-sans text-white text-sm"
-        >Akses Kapan Saja dan Dimana Saja</span
+        >Akses Dengan Mudah Kapanpun Dan Dimanapun</span
       >
     </div>
   </div>
@@ -69,5 +69,4 @@ const isDark = useDark();
 const toggleDark = useToggle(isDark);
 </script>
 
-<style>
-</style>
+<style></style>

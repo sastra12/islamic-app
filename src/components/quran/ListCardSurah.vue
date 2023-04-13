@@ -42,7 +42,7 @@
             fill="currentColor"
           />
           <text
-            class="text-sm"
+            class="text-[12px]"
             x="50%"
             y="64%"
             text-anchor="middle"
@@ -110,5 +110,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
