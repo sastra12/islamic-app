@@ -51,7 +51,7 @@
   </div>
 
   <div
-    class="px-3 py-2 left-0 right-0 mx-auto top-[-28px] relative bg-white rounded-md w-11/12 shadow-lg"
+    class="px-3 py-2 left-0 right-0 mx-auto top-[-12px] min-[435px]:top-[-28px] relative bg-white rounded-md w-11/12 shadow-lg"
   >
     <p class="font-sans text-xs text-slate-600">
       Barang siapa membaca satu huruf dari kitab Allah, maka dibalas satu
