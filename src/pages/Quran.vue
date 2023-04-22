@@ -24,26 +24,36 @@
 
     <ListCardSurah />
   </default-container>
+
+  <!-- Scoll on top -->
+  <ScrollOnTop @scrollOnTop="handleEvent" />
 </template>
 
 <script>
 import { onMounted, ref } from "vue";
 import DefaultContainer from "../components/DefaultContainer.vue";
 import ListCardSurah from "../components/quran/ListCardSurah.vue";
+import ScrollOnTop from "../components/ScrollOnTop.vue";
 import { useDark } from "@vueuse/core";
 
 export default {
-  components: { DefaultContainer, ListCardSurah },
+  components: { DefaultContainer, ListCardSurah, ScrollOnTop },
   setup() {
     const isDark = useDark();
+    const handleEvent = () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    };
     onMounted(() => {
       isDark.value;
     });
 
-    return {};
+    return { handleEvent };
   },
 };
 </script>
 
-<style>
-</style>
+<style scoped></style>
