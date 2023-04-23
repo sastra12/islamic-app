@@ -1,7 +1,7 @@
 <template>
   <div
     @click="scrollTop"
-    class="w-10 h-10 bottom-4 right-80 fixed z-50 rounded-full bg-teal-500 flex justify-center items-center"
+    class="w-10 h-10 bottom-4 right-10 fixed z-50 rounded-full bg-teal-500 flex justify-center items-center"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
