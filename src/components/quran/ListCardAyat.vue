@@ -1,6 +1,7 @@
 <template>
   <div
-    class="bg-white py-4 px-3 mb-3 rounded-md dark:bg-slate-800"
+    @click="checkPosition"
+    class="bg-white py-4 px-3 mb-3 rounded-md"
     v-for="(ayat, index) in ayats"
     :key="ayat.nomorAyat"
   >
@@ -35,21 +36,19 @@
     <p class="mt-5 text-slate-400">{{ ayat.teksIndonesia }}</p>
 
     <!-- Bookmark -->
-    <div class="mt-2">
-      <div
-        @click="saveAyat($event, ayat.nomorAyat, index)"
-        class="text-[9px] text-teal-500 font-semibold w-max p-2 border border-teal-500 rounded-md flex items-center cursor-pointer"
-        :class="checkLocalStorage(index)"
-      >
-        Bookmark
-      </div>
+    <div
+      @click="saveAyat($event, ayat.nomorAyat, index)"
+      class="text-[9px] text-teal-500 font-semibold w-max p-2 border border-teal-500 rounded-md flex items-center cursor-pointer mt-2"
+      :class="checkLocalStorage(index)"
+    >
+      Bookmark
     </div>
   </div>
 </template>
 
 <script>
 import { useRoute } from "vue-router";
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 export default {
   props: {
     ayats: Object,
@@ -60,11 +59,23 @@ export default {
     const isBookMark = reactive({
       indexElement: null,
     });
+    const parentDiv = ref(null);
     const query = route.params.id;
 
+    const checkPosition = (event) => {
+      const bookMarkClicked = event.target;
+      const offsetleft = bookMarkClicked.offsetLeft;
+      const offsettop = bookMarkClicked.offsetTop;
+
+      console.log(offsetleft + "-" + offsettop);
+    };
+
+    // simpan ayat pada local storage
     const saveAyat = (event, noAyat, index) => {
       const ayat = JSON.parse(localStorage.getItem("bookmark"));
       const bookMarkClicked = event.target;
+      const offsetleft = bookMarkClicked.offsetLeft;
+      const offsettop = bookMarkClicked.offsetTop;
 
       if (ayat && ayat.indexElement == index) {
         bookMarkClicked.classList.remove("selected");
@@ -75,6 +86,7 @@ export default {
           "Tidak dapat menambahkan bookmark lagi, mohon hapus bookmark sebelumnya"
         );
       } else {
+        console.log(event.target.parentElement);
         bookMarkClicked.classList.add("selected");
         isBookMark.indexElement = index;
         localStorage.setItem(
@@ -83,11 +95,14 @@ export default {
             no: noAyat,
             indexElement: index,
             idSurat: query,
+            offsetleft: offsetleft,
+            offsettop: offsettop,
           })
         );
       }
     };
 
+    // cek bookmark pada local storage
     const checkLocalStorage = (index) => {
       const ayat = JSON.parse(localStorage.getItem("bookmark"));
       if (!ayat) {
@@ -97,10 +112,22 @@ export default {
       }
     };
 
-    onMounted(() => {});
+    onMounted(() => {
+      setTimeout(() => {
+        const position = JSON.parse(localStorage.getItem("bookmark"));
+        if (position) {
+          window.scrollTo({
+            top: position.offsettop - 200,
+            left: position.offsetleft,
+            behavior: "smooth",
+          });
+        }
+      }, 800);
+    });
 
     return {
       checkLocalStorage,
+      checkPosition,
       isBookMark,
       saveAyat,
     };
