@@ -1,5 +1,13 @@
 <template>
-  <h1 class="text-center pt-3 font-semibold dark:text-white">Baca Al-Qur'an</h1>
+  <div class="flex pt-3 justify-between items-center">
+    <h1 class="font-semibold dark:text-white">Baca Al-Qur'an</h1>
+    <router-link to="/bookmark">
+      <div class="bg-teal-500 rounded-md p-1 cursor-pointer hover:bg-teal-700">
+        <p class="text-xs flex text-white">Bookmark</p>
+      </div>
+    </router-link>
+  </div>
+
   <div class="grid grid-cols-2 min-[435px]:grid-cols-4 gap-4 mt-4">
     <router-link to="/quran">
       <card-menu>
@@ -63,5 +71,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

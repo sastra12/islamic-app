@@ -106,14 +106,16 @@ export default {
     };
 
     onMounted(() => {
+      const position = JSON.parse(localStorage.getItem("bookmark"));
       setTimeout(() => {
-        const position = JSON.parse(localStorage.getItem("bookmark"));
-        if (position.idSurat == query) {
-          window.scrollTo({
-            top: position.offsettop - 200,
-            left: position.offsetleft,
-            behavior: "smooth",
-          });
+        if (position) {
+          if (position.idSurat == query) {
+            window.scrollTo({
+              top: position.offsettop - 200,
+              left: position.offsetleft,
+              behavior: "smooth",
+            });
+          }
         }
       }, 800);
     });
