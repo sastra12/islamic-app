@@ -1,6 +1,5 @@
 <template>
   <div
-    @click="checkPosition"
     class="bg-white py-4 px-3 mb-3 rounded-md"
     v-for="(ayat, index) in ayats"
     :key="ayat.nomorAyat"
@@ -48,7 +47,7 @@
 
 <script>
 import { useRoute } from "vue-router";
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, nextTick } from "vue";
 export default {
   props: {
     ayats: Object,
@@ -62,20 +61,10 @@ export default {
     const parentDiv = ref(null);
     const query = route.params.id;
 
-    const checkPosition = (event) => {
-      const bookMarkClicked = event.target;
-      const offsetleft = bookMarkClicked.offsetLeft;
-      const offsettop = bookMarkClicked.offsetTop;
-
-      console.log(offsetleft + "-" + offsettop);
-    };
-
     // simpan ayat pada local storage
     const saveAyat = (event, noAyat, index) => {
       const ayat = JSON.parse(localStorage.getItem("bookmark"));
       const bookMarkClicked = event.target;
-      const offsetleft = bookMarkClicked.offsetLeft;
-      const offsettop = bookMarkClicked.offsetTop;
 
       if (ayat && ayat.indexElement == index) {
         bookMarkClicked.classList.remove("selected");
@@ -86,7 +75,12 @@ export default {
           "Tidak dapat menambahkan bookmark lagi, mohon hapus bookmark sebelumnya"
         );
       } else {
-        console.log(event.target.parentElement);
+        const parent = event.target.parentElement;
+        const parentPos = {
+          top: parent.offsetTop,
+          left: parent.offsetLeft,
+        };
+
         bookMarkClicked.classList.add("selected");
         isBookMark.indexElement = index;
         localStorage.setItem(
@@ -95,8 +89,8 @@ export default {
             no: noAyat,
             indexElement: index,
             idSurat: query,
-            offsetleft: offsetleft,
-            offsettop: offsettop,
+            offsetleft: parentPos.left,
+            offsettop: parentPos.top,
           })
         );
       }
