@@ -71,31 +71,7 @@ export default {
       allTafsir,
     };
   },
-  // data() {
-  //   return {
-  //     allTafsir: [],
-  //   };
-  // },
-
-  // created() {
-  //   this.getTafsirSurah();
-  // },
-
-  // methods: {
-  //   async getTafsirSurah() {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://equran.id/api/v2/tafsir/" + this.$route.params.id
-  //       );
-  //       this.allTafsir = response.data.data.tafsir;
-  //       console.log(this.allTafsir);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   },
-  // },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

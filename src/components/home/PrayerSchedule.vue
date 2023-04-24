@@ -148,7 +148,9 @@ export default {
           "https://api.myquran.com/v1/sholat/kota/semua"
         );
         allDatalokasi.value = response.data;
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     // method mengambil tanggal saat ini dengan format 2023/04/1
@@ -242,5 +244,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,7 +1,7 @@
 <template>
   <div
     class="bg-white py-4 px-3 mb-3 rounded-md dark:bg-slate-800"
-    v-for="ayat in ayats"
+    v-for="(ayat, index) in ayats"
     :key="ayat.nomorAyat"
   >
     <div class="">
@@ -33,16 +33,83 @@
       </div>
     </div>
     <p class="mt-5 text-slate-400">{{ ayat.teksIndonesia }}</p>
+
+    <!-- Bookmark -->
+    <div class="mt-2">
+      <div
+        @click="saveAyat($event, ayat.nomorAyat, index)"
+        class="text-[9px] text-teal-500 font-semibold w-max p-2 border border-teal-500 rounded-md flex items-center cursor-pointer"
+        :class="checkLocalStorage(index)"
+      >
+        Bookmark
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { useRoute } from "vue-router";
+import { onMounted, reactive } from "vue";
 export default {
   props: {
     ayats: Object,
+  },
+
+  setup(props) {
+    const route = useRoute();
+    const isBookMark = reactive({
+      indexElement: null,
+    });
+    const query = route.params.id;
+
+    const saveAyat = (event, noAyat, index) => {
+      const ayat = JSON.parse(localStorage.getItem("bookmark"));
+      const bookMarkClicked = event.target;
+
+      if (ayat && ayat.indexElement == index) {
+        bookMarkClicked.classList.remove("selected");
+        isBookMark.indexElement = null;
+        localStorage.removeItem("bookmark");
+      } else if (ayat && ayat.indexElement != index) {
+        alert(
+          "Tidak dapat menambahkan bookmark lagi, mohon hapus bookmark sebelumnya"
+        );
+      } else {
+        bookMarkClicked.classList.add("selected");
+        isBookMark.indexElement = index;
+        localStorage.setItem(
+          "bookmark",
+          JSON.stringify({
+            no: noAyat,
+            indexElement: index,
+            idSurat: query,
+          })
+        );
+      }
+    };
+
+    const checkLocalStorage = (index) => {
+      const ayat = JSON.parse(localStorage.getItem("bookmark"));
+      if (!ayat) {
+        return "";
+      } else if (ayat.indexElement == index && ayat.idSurat == query) {
+        return "selected";
+      }
+    };
+
+    onMounted(() => {});
+
+    return {
+      checkLocalStorage,
+      isBookMark,
+      saveAyat,
+    };
   },
 };
 </script>
 
 <style scoped>
+.selected {
+  @apply bg-teal-500 text-white;
+}
 </style>
