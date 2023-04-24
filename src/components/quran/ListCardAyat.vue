@@ -58,7 +58,6 @@ export default {
     const isBookMark = reactive({
       indexElement: null,
     });
-    const parentDiv = ref(null);
     const query = route.params.id;
 
     // simpan ayat pada local storage
@@ -109,7 +108,7 @@ export default {
     onMounted(() => {
       setTimeout(() => {
         const position = JSON.parse(localStorage.getItem("bookmark"));
-        if (position) {
+        if (position.idSurat == query) {
           window.scrollTo({
             top: position.offsettop - 200,
             left: position.offsetleft,
@@ -121,7 +120,6 @@ export default {
 
     return {
       checkLocalStorage,
-      checkPosition,
       isBookMark,
       saveAyat,
     };
