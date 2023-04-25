@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white py-4 px-3 mb-3 rounded-md"
+    class="bg-white py-4 px-3 mb-3 rounded-md dark:bg-slate-800"
     v-for="(ayat, index) in ayats"
     :key="ayat.nomorAyat"
   >

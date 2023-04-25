@@ -65,9 +65,12 @@
 <script>
 import { onMounted, reactive, ref } from "vue";
 import DefaultContainer from "../components/DefaultContainer.vue";
+import { useDark } from "@vueuse/core";
+
 export default {
   components: { DefaultContainer },
   setup() {
+    const isDark = useDark();
     const bookmarkdata = reactive({
       idSurah: null,
       namasuratindo: "",
@@ -83,6 +86,7 @@ export default {
           (bookmarkdata.ayat = bookmark.no);
         bookmarkdata.idSurah = bookmark.idSurat;
       }
+      isDark.value;
     });
 
     return {
