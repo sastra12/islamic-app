@@ -2,7 +2,7 @@
   <div>
     <default-container>
       <div
-        class="bg-gradient-to-r from-emerald-700 to-teal-500 rounded-md mb-2"
+        class="bg-gradient-to-r from-emerald-700 to-teal-500 rounded-md mb-6"
       >
         <div class="p-3 flex items-center justify-between">
           <router-link to="/">
@@ -26,15 +26,54 @@
       </div>
 
       <div class="h-screen">
-        <div>Hallo Semuanya</div>
+        <div class="bg-white py-8 rounded-md px-3 dark:bg-slate-800">
+          <router-link :to="`/surat/${bookmarkdata.idSurah}`">
+            <div class="flex">
+              <div class="ml-3">
+                <h3 class="text-teal-500">{{ bookmarkdata.namasuratindo }}</h3>
+                <p class="text-[12px] text-slate-400">
+                  Ayat ke {{ bookmarkdata.ayat }}
+                </p>
+              </div>
+              <div class="ml-auto my-auto">
+                <p class="text-2xl text-teal-500">
+                  {{ bookmarkdata.namasuratarab }}
+                </p>
+              </div>
+            </div>
+          </router-link>
+        </div>
       </div>
     </default-container>
   </div>
 </template>
 
 <script>
+import { onMounted, reactive, ref } from "vue";
 import DefaultContainer from "../components/DefaultContainer.vue";
 export default {
   components: { DefaultContainer },
+  setup() {
+    const bookmarkdata = reactive({
+      idSurah: null,
+      namasuratindo: "",
+      namasuratarab: "",
+      ayat: null,
+    });
+
+    onMounted(() => {
+      const bookmark = JSON.parse(localStorage.getItem("bookmark"));
+      if (bookmark) {
+        (bookmarkdata.namasuratindo = bookmark.namasurahindo),
+          (bookmarkdata.namasuratarab = bookmark.namasuraharab),
+          (bookmarkdata.ayat = bookmark.no);
+        bookmarkdata.idSurah = bookmark.idSurat;
+      }
+    });
+
+    return {
+      bookmarkdata,
+    };
+  },
 };
 </script>

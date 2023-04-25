@@ -60,7 +60,12 @@
 
     <div class="mt-4">
       <keep-alive>
-        <component :is="currentTab" :ayats="detailsurah.ayat" />
+        <component
+          :is="currentTab"
+          :ayats="detailsurah.ayat"
+          :namasurah="detailsurah.nama"
+          :namalatinsurah="detailsurah.namaLatin"
+        />
       </keep-alive>
     </div>
   </default-container>

@@ -36,7 +36,7 @@
 
     <!-- Bookmark -->
     <div
-      @click="saveAyat($event, ayat.nomorAyat, index)"
+      @click="saveAyat($event, ayat, index)"
       class="text-[9px] text-teal-500 font-semibold w-max p-2 border border-teal-500 rounded-md flex items-center cursor-pointer mt-2"
       :class="checkLocalStorage(index)"
     >
@@ -47,10 +47,12 @@
 
 <script>
 import { useRoute } from "vue-router";
-import { onMounted, reactive, ref, nextTick } from "vue";
+import { onMounted, reactive } from "vue";
 export default {
   props: {
     ayats: Object,
+    namasurah: String,
+    namalatinsurah: String,
   },
 
   setup(props) {
@@ -61,15 +63,15 @@ export default {
     const query = route.params.id;
 
     // simpan ayat pada local storage
-    const saveAyat = (event, noAyat, index) => {
-      const ayat = JSON.parse(localStorage.getItem("bookmark"));
+    const saveAyat = (event, ayat, index) => {
+      const bookmark = JSON.parse(localStorage.getItem("bookmark"));
       const bookMarkClicked = event.target;
 
-      if (ayat && ayat.indexElement == index) {
+      if (bookmark && bookmark.indexElement == index) {
         bookMarkClicked.classList.remove("selected");
         isBookMark.indexElement = null;
         localStorage.removeItem("bookmark");
-      } else if (ayat && ayat.indexElement != index) {
+      } else if (bookmark && bookmark.indexElement != index) {
         alert(
           "Tidak dapat menambahkan bookmark lagi, mohon hapus bookmark sebelumnya"
         );
@@ -77,7 +79,6 @@ export default {
         const parent = event.target.parentElement;
         const parentPos = {
           top: parent.offsetTop,
-          left: parent.offsetLeft,
         };
 
         bookMarkClicked.classList.add("selected");
@@ -85,10 +86,11 @@ export default {
         localStorage.setItem(
           "bookmark",
           JSON.stringify({
-            no: noAyat,
+            no: ayat.nomorAyat,
+            namasuraharab: props.namasurah,
+            namasurahindo: props.namalatinsurah,
             indexElement: index,
-            idSurat: query,
-            offsetleft: parentPos.left,
+            idSurat: parseInt(query),
             offsettop: parentPos.top,
           })
         );
@@ -106,13 +108,13 @@ export default {
     };
 
     onMounted(() => {
-      const position = JSON.parse(localStorage.getItem("bookmark"));
+      const bookmark = JSON.parse(localStorage.getItem("bookmark"));
       setTimeout(() => {
-        if (position) {
-          if (position.idSurat == query) {
+        if (bookmark) {
+          if (bookmark.idSurat == query) {
             window.scrollTo({
-              top: position.offsettop - 200,
-              left: position.offsetleft,
+              top: bookmark.offsettop,
+              left: bookmark.offsetleft,
               behavior: "smooth",
             });
           }
