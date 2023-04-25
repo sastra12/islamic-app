@@ -72,9 +72,7 @@ export default {
         isBookMark.indexElement = null;
         localStorage.removeItem("bookmark");
       } else if (bookmark && bookmark.indexElement != index) {
-        alert(
-          "Tidak dapat menambahkan bookmark lagi, mohon hapus bookmark sebelumnya"
-        );
+        alert("Can't Add bookmark anymore, please delete previous bookmark");
       } else {
         const parent = event.target.parentElement;
         const parentPos = {
