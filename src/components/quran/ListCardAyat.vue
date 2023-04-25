@@ -61,7 +61,6 @@ export default {
       indexElement: null,
     });
     const query = route.params.id;
-
     // simpan ayat pada local storage
     const saveAyat = (event, ayat, index) => {
       const bookmark = JSON.parse(localStorage.getItem("bookmark"));
@@ -112,7 +111,6 @@ export default {
           if (bookmark.idSurat == query) {
             window.scrollTo({
               top: bookmark.offsettop,
-              left: bookmark.offsetleft,
               behavior: "smooth",
             });
           }
