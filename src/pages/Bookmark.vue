@@ -26,7 +26,10 @@
       </div>
 
       <div class="h-screen">
-        <div class="bg-white py-8 rounded-md px-3 dark:bg-slate-800">
+        <div
+          class="bg-white py-8 rounded-md px-3 dark:bg-slate-800"
+          v-if="bookmarkdata.idSurah != null"
+        >
           <router-link :to="`/surat/${bookmarkdata.idSurah}`">
             <div class="flex">
               <div class="ml-3">
@@ -42,6 +45,17 @@
               </div>
             </div>
           </router-link>
+        </div>
+        <!-- jika bookmark kosong -->
+        <div
+          class="bg-white py-8 rounded-md px-3 dark:bg-slate-800"
+          v-if="bookmarkdata.idSurah == null"
+        >
+          <div class="flex justify-center">
+            <div class="ml-3">
+              <h3 class="text-teal-500">Bookmark is still empty</h3>
+            </div>
+          </div>
         </div>
       </div>
     </default-container>
