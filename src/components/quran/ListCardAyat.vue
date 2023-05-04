@@ -115,7 +115,7 @@ export default {
             });
           }
         }
-      }, 800);
+      }, 1000);
     });
 
     return {
