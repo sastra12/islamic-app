@@ -22,7 +22,7 @@
             </svg>
           </router-link>
           <h3 class="font-sans text-lg text-white mx-auto">
-            Hadis Riwayat Abu Dawud
+            {{ selectedNamePerawi }}
           </h3>
         </div>
       </div>
@@ -88,6 +88,7 @@ const slug = ref(route.params);
 
 onMounted(() => {
   haditsByPerawi();
+  console.log(route.path);
 });
 
 const haditsByPerawi = async () => {
@@ -126,5 +127,29 @@ const hiddenButtonPrevious = computed(() => {
 
 const hiddenButtonNext = computed(() => {
   return page.value == totalPage.value ? "hidden" : "";
+});
+
+const selectedNamePerawi = computed(() => {
+  if (slug.value.slug == "ahmad") {
+    return "Ahmad";
+  } else if (slug.value.slug == "abu-dawud") {
+    return "Abu Dawud";
+  } else if (slug.value.slug == "bukhari") {
+    return "Bukhari";
+  } else if (slug.value.slug == "bukhari") {
+    return "Bukhari";
+  } else if (slug.value.slug == "darimi") {
+    return "Darimi";
+  } else if (slug.value.slug == "ibnu-majah") {
+    return "Ibnu Majah";
+  } else if (slug.value.slug == "malik") {
+    return "Malik";
+  } else if (slug.value.slug == "muslim") {
+    return "Muslim";
+  } else if (slug.value.slug == "nasai") {
+    return "Nasai";
+  } else if (slug.value.slug == "tirmidzi") {
+    return "Tirmidzi";
+  }
 });
 </script>
