@@ -84,6 +84,7 @@ const totalPage = ref();
 const router = useRouter();
 const route = useRoute();
 const page = ref(Number.parseInt(route.query.page) || 1);
+const slug = ref(route.params);
 
 onMounted(() => {
   haditsByPerawi();
@@ -92,7 +93,7 @@ onMounted(() => {
 const haditsByPerawi = async () => {
   try {
     const response = await axios.get(
-      `https://hadis-api-id.vercel.app/hadith/abu-dawud?page=${page.value}`
+      `https://hadis-api-id.vercel.app/hadith/${slug.value.slug}?page=${page.value}`
     );
     hadithsbyPerawi.value = response.data.items;
     totalPage.value = response.data.pagination.totalPages;
