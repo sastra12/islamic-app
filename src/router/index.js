@@ -21,6 +21,15 @@ const routes = [
     component: () => import("../pages/TahlilReading.vue"),
   },
   {
+    path: "/hadith",
+    component: () => import("../pages/TheHadith.vue"),
+  },
+  {
+    path: "/hadith/:slug",
+    name: "HadithResult",
+    component: () => import("../pages/TheHadithDetail.vue"),
+  },
+  {
     path: "/bookmark",
     component: () => import("../pages/Bookmark.vue"),
   },

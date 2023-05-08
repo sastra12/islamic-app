@@ -52,6 +52,17 @@
         <p class="text-[12px] mt-2 text-white text-center">Bacaan Tahlil</p>
       </card-menu>
     </router-link>
+
+    <router-link to="/hadith">
+      <card-menu
+        ><img
+          src="/image/hadits.webp"
+          alt=""
+          class="w-7 h-7 text-center mx-auto"
+        />
+        <p class="text-[12px] mt-2 text-white text-center">Hadis</p>
+      </card-menu>
+    </router-link>
   </div>
 
   <!-- Waktu Sholat -->
