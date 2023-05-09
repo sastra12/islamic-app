@@ -74,7 +74,7 @@
 <script setup>
 import DefaultContainer from "../components/DefaultContainer.vue";
 
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 
 import axios from "axios";
 import { useRouter, useRoute } from "vue-router";
@@ -88,7 +88,6 @@ const slug = ref(route.params);
 
 onMounted(() => {
   haditsByPerawi();
-  console.log(route.path);
 });
 
 const haditsByPerawi = async () => {
@@ -151,5 +150,15 @@ const selectedNamePerawi = computed(() => {
   } else if (slug.value.slug == "tirmidzi") {
     return "Tirmidzi";
   }
+});
+
+watch(page, () => {
+  setTimeout(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, 1500);
 });
 </script>
