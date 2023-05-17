@@ -38,6 +38,8 @@ export default {
         return "Hadith";
       } else if (route.path == "/bacaan-tahlil") {
         return "Bacaan Tahlil";
+      } else if (route.path == "/bookmark") {
+        return "Bookmark";
       }
     });
 
