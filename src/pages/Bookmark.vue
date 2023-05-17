@@ -63,8 +63,8 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref } from "vue";
-import DefaultContainer from "../components/DefaultContainer.vue";
+import { onMounted, reactive } from "vue";
+import DefaultContainer from "../components/reusable/DefaultContainer.vue";
 import { useDark } from "@vueuse/core";
 
 export default {

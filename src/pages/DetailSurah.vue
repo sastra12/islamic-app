@@ -80,10 +80,10 @@
 
 <script>
 import axios from "axios";
-import DefaultContainer from "../components/DefaultContainer.vue";
+import DefaultContainer from "../components/reusable/DefaultContainer.vue";
 import ListCardAyat from "../components/quran/ListCardAyat.vue";
 import TafsirSurah from "../components/quran/TafsirSurah.vue";
-import ScrollOnTop from "../components/ScrollOnTop.vue";
+import ScrollOnTop from "../components/reusable/ScrollOnTop.vue";
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useDark } from "@vueuse/core";

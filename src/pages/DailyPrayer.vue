@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import Accordion from "../components/Accordion.vue";
-import DefaultContainer from "../components/DefaultContainer.vue";
-import ScrollOnTop from "../components/ScrollOnTop.vue";
+import Accordion from "../components/reusable/Accordion.vue";
+import DefaultContainer from "../components/reusable/DefaultContainer.vue";
+import ScrollOnTop from "../components/reusable/ScrollOnTop.vue";
 import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useDark } from "@vueuse/core";

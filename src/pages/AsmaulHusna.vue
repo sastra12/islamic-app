@@ -46,8 +46,8 @@
 
 <script>
 import axios from "axios";
-import DefaultContainer from "../components/DefaultContainer.vue";
-import ScrollOnTop from "../components/ScrollOnTop.vue";
+import DefaultContainer from "../components/reusable/DefaultContainer.vue";
+import ScrollOnTop from "../components/reusable/ScrollOnTop.vue";
 import { ref, onMounted } from "vue";
 import { useDark } from "@vueuse/core";
 

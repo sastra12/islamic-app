@@ -72,7 +72,7 @@
 </template>
 
 <script setup>
-import DefaultContainer from "../components/DefaultContainer.vue";
+import DefaultContainer from "../components/reusable/DefaultContainer.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
 
