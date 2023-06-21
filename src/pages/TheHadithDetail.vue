@@ -107,7 +107,6 @@ const previousPage = () => {
     page.value--;
     const query = { page: page.value };
     router.push({ name: "HadithResult", query: query });
-    haditsByPerawi(page.value);
   }
 };
 
@@ -116,7 +115,6 @@ const nextPage = () => {
     page.value++;
     const query = { page: page.value };
     router.push({ name: "HadithResult", query: query });
-    haditsByPerawi(page.value);
   }
 };
 
