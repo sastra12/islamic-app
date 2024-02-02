@@ -1,15 +1,17 @@
 <template>
   <default-container>
-    <Header />
-    <div class="flex flex-col items-center max-h-screen not-found">
-      <img
-        src="@/assets/search-not-found.svg"
-        alt=""
-        class="w-[350px] mx-auto"
-      />
-      <h4 class="mx-auto font-poppins font-bold text-xl mt-4">
-        Search not found
-      </h4>
+    <div class="h-screen">
+      <Header />
+      <div class="flex flex-col not-found">
+        <img
+          src="@/assets/search-not-found.svg"
+          alt=""
+          class="w-[350px] mx-auto"
+        />
+        <h4 class="mx-auto font-sans font-bold text-xl mt-4 text-red-500">
+          Uppss... Search Not Found
+        </h4>
+      </div>
     </div>
   </default-container>
 </template>
