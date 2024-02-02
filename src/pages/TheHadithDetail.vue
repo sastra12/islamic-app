@@ -151,6 +151,7 @@ const selectedNamePerawi = computed(() => {
 });
 
 watch(page, () => {
+  haditsByPerawi();
   setTimeout(() => {
     window.scroll({
       top: 0,
