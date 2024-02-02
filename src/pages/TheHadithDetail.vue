@@ -27,44 +27,48 @@
         </div>
       </div>
 
-      <div
-        class="bg-white py-4 px-3 mb-3 rounded-md dark:bg-slate-800"
-        v-for="hadith in hadithsbyPerawi"
-        :key="hadith.number"
-      >
-        <div class="">
-          <div
-            class="py-2 px-3 bg-teal-500 w-1/5 rounded mx-auto mb-3 text-white"
-          >
-            <p class="text-center">{{ hadith.number }}</p>
-          </div>
+      <div>
+        <div
+          class="bg-white py-4 px-3 mb-3 rounded-md dark:bg-slate-800"
+          v-for="hadith in hadithsbyPerawi"
+          :key="hadith.number"
+        >
+          <div class="">
+            <div
+              class="py-2 px-3 bg-teal-500 w-1/5 rounded mx-auto mb-3 text-white"
+            >
+              <p class="text-center">{{ hadith.number }}</p>
+            </div>
 
-          <div class="ml-auto my-auto">
-            <p class="text-2xl text-teal-500 text-right">{{ hadith.arab }}</p>
+            <div class="ml-auto my-auto">
+              <p class="text-2xl text-teal-500 text-right">{{ hadith.arab }}</p>
+            </div>
           </div>
+          <p class="mt-5 text-slate-400">
+            {{ hadith.id }}
+          </p>
         </div>
-        <p class="mt-5 text-slate-400">
-          {{ hadith.id }}
-        </p>
-      </div>
 
-      <div class="flex flex-row justify-between text-white">
-        <p class="text-center bg-teal-500 p-2 rounded">Halaman ke {{ page }}</p>
-        <div class="flex justify-between gap-2">
-          <button
-            :class="hiddenButtonPrevious"
-            class="bg-teal-500 p-2 rounded"
-            @click="previousPage"
-          >
-            Previous
-          </button>
-          <button
-            :class="hiddenButtonNext"
-            class="bg-teal-500 p-2 rounded"
-            @click="nextPage"
-          >
-            Next
-          </button>
+        <div class="flex flex-row justify-between text-white">
+          <p class="text-center bg-teal-500 p-2 rounded">
+            Halaman ke {{ page }}
+          </p>
+          <div class="flex justify-between gap-2">
+            <button
+              :class="hiddenButtonPrevious"
+              class="bg-teal-500 p-2 rounded"
+              @click="previousPage"
+            >
+              Previous
+            </button>
+            <button
+              :class="hiddenButtonNext"
+              class="bg-teal-500 p-2 rounded"
+              @click="nextPage"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </default-container>
@@ -86,8 +90,8 @@ const route = useRoute();
 const page = ref(Number.parseInt(route.query.page) || 1);
 const slug = ref(route.params);
 
-onMounted(() => {
-  haditsByPerawi();
+onMounted(async () => {
+  await haditsByPerawi();
 });
 
 const haditsByPerawi = async () => {
@@ -98,7 +102,8 @@ const haditsByPerawi = async () => {
     hadithsbyPerawi.value = response.data.items;
     totalPage.value = response.data.pagination.totalPages;
   } catch (error) {
-    console.log(error);
+    if (error.code == "ERR_BAD_REQUEST") {
+    }
   }
 };
 

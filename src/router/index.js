@@ -29,6 +29,10 @@ const routes = [
     path: "/bookmark",
     component: () => import("../pages/Bookmark.vue"),
   },
+  {
+    path: "/:notFound",
+    component: () => import("../pages/NotFound.vue"),
+  },
 ];
 
 const router = createRouter({
