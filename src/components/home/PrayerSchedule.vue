@@ -145,7 +145,7 @@ export default {
     const getAllLocation = async () => {
       try {
         const response = await axios.get(
-          "https://api.myquran.com/v1/sholat/kota/semua"
+          "https://api.myquran.com/v2/sholat/kota/semua"
         );
         allDatalokasi.value = response.data;
       } catch (error) {
@@ -168,7 +168,7 @@ export default {
       if (idLocation) {
         try {
           const response = await axios.get(
-            "https://api.myquran.com/v1/sholat/jadwal/" +
+            "https://api.myquran.com/v2/sholat/jadwal/" +
               idLocation.id +
               "/" +
               getDate()
@@ -183,7 +183,7 @@ export default {
         // jika tidak ada lokasi id di local storage maka jalankan ini
         try {
           const response = await axios.get(
-            "https://api.myquran.com/v1/sholat/jadwal/" +
+            "https://api.myquran.com/v2/sholat/jadwal/" +
               "1602" +
               "/" +
               getDate()
@@ -201,7 +201,7 @@ export default {
     const getDynamicLocation = async (id) => {
       try {
         const response = await axios.get(
-          "https://api.myquran.com/v1/sholat/jadwal/" + id + "/" + getDate()
+          "https://api.myquran.com/v2/sholat/jadwal/" + id + "/" + getDate()
         );
         let { data } = response.data;
         jadwalSholat.lokasi = data.lokasi;
