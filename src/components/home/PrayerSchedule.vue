@@ -147,7 +147,7 @@ export default {
         const response = await axios.get(
           "https://api.myquran.com/v2/sholat/kota/semua"
         );
-        allDatalokasi.value = response.data;
+        allDatalokasi.value = response.data.data;
       } catch (error) {
         console.log(error);
       }
@@ -227,10 +227,11 @@ export default {
       );
     });
 
-    onMounted(() => {
-      getAllLocation();
-      getDefaultLocation();
+    onMounted(async () => {
+      await getAllLocation();
+      await getDefaultLocation();
       isDark.value;
+      // console.log(allDatalokasi.value);
     });
 
     return {
