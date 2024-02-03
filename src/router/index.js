@@ -30,7 +30,7 @@ const routes = [
     component: () => import("../pages/Bookmark.vue"),
   },
   {
-    path: "/:notFound",
+    path: "/:pathMatch(.*)*",
     component: () => import("../pages/NotFound.vue"),
   },
 ];

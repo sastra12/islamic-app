@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div>
+      <div v-if="totalPage != undefined" class="h-screen">
         <div
           class="bg-white py-4 px-3 mb-3 rounded-md dark:bg-slate-800"
           v-for="hadith in hadithsbyPerawi"
@@ -50,7 +50,10 @@
         </div>
 
         <div class="flex flex-row justify-between text-white">
-          <p class="text-center bg-teal-500 p-2 rounded">
+          <p
+            class="text-center bg-teal-500 p-2 rounded"
+            v-if="totalPage != undefined"
+          >
             Halaman ke {{ page }}
           </p>
           <div class="flex justify-between gap-2">
@@ -71,12 +74,16 @@
           </div>
         </div>
       </div>
+      <div class="h-screen" v-else>
+        <not-found-component></not-found-component>
+      </div>
     </default-container>
   </div>
 </template>
 
 <script setup>
 import DefaultContainer from "../components/reusable/DefaultContainer.vue";
+import NotFoundComponent from "../components/reusable/NotFoundComponent.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
 
@@ -92,6 +99,7 @@ const slug = ref(route.params);
 
 onMounted(async () => {
   await haditsByPerawi();
+  console.log(totalPage.value);
 });
 
 const haditsByPerawi = async () => {
@@ -124,11 +132,13 @@ const nextPage = () => {
 };
 
 const hiddenButtonPrevious = computed(() => {
-  return page.value == 1 ? "hidden" : "";
+  return page.value == 1 || totalPage.value == undefined ? "hidden" : "";
 });
 
 const hiddenButtonNext = computed(() => {
-  return page.value == totalPage.value ? "hidden" : "";
+  return page.value == totalPage.value || totalPage.value == undefined
+    ? "hidden"
+    : "";
 });
 
 const selectedNamePerawi = computed(() => {
