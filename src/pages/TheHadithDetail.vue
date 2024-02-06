@@ -74,7 +74,10 @@
           </div>
         </div>
       </div>
-      <div class="h-screen" v-else>
+      <div
+        class="h-screen"
+        v-if="page.value != 1 || totalPage.value == undefined"
+      >
         <not-found-component></not-found-component>
       </div>
     </default-container>
