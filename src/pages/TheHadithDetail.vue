@@ -74,10 +74,7 @@
           </div>
         </div>
       </div>
-      <div
-        class="h-screen"
-        v-if="page.value != 1 || totalPage.value == undefined"
-      >
+      <div class="h-screen" v-else>
         <not-found-component></not-found-component>
       </div>
     </default-container>
@@ -103,6 +100,7 @@ const slug = ref(route.params);
 onMounted(async () => {
   await haditsByPerawi();
   console.log(totalPage.value);
+  console.log(page.value);
 });
 
 const haditsByPerawi = async () => {
@@ -113,8 +111,7 @@ const haditsByPerawi = async () => {
     hadithsbyPerawi.value = response.data.items;
     totalPage.value = response.data.pagination.totalPages;
   } catch (error) {
-    if (error.code == "ERR_BAD_REQUEST") {
-    }
+    console.log(error);
   }
 };
 
