@@ -55,14 +55,20 @@
           </form>
 
           <div
-            class="py-2 px-1 rounded hover:bg-teal-500 mb-1 cursor-pointer"
+            class="group"
             v-for="lokasi in filteredCity"
             :key="lokasi.id"
             @click.prevent="getDynamicLocation(lokasi.id)"
           >
-            <p class="text-xs text-teal-500 hover:text-white font-semibold">
-              {{ lokasi.lokasi }}
-            </p>
+            <div
+              class="group-hover:bg-teal-500 py-2 px-1 rounded mb-1 cursor-pointer"
+            >
+              <p
+                class="text-xs text-teal-500 group-hover:text-white font-semibold"
+              >
+                {{ lokasi.lokasi }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
