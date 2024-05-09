@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div v-if="totalPage != undefined" class="h-screen">
+      <div v-if="totalPage != undefined || page == 1" class="max-h-max">
         <div
           class="bg-white py-4 px-3 mb-3 rounded-md dark:bg-slate-800"
           v-for="hadith in hadithsbyPerawi"
@@ -99,8 +99,6 @@ const slug = ref(route.params);
 
 onMounted(async () => {
   await haditsByPerawi();
-  console.log(totalPage.value);
-  console.log(page.value);
 });
 
 const haditsByPerawi = async () => {
